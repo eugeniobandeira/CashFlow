@@ -1,6 +1,6 @@
 ﻿namespace CashFlow.Communication.Enums
 {
-    public enum PaymentType
+    public enum PaymentTypeEnum
     {
         Cash = 0,
         CreditCard = 1,
