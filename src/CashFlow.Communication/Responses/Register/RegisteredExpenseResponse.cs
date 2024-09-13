@@ -1,4 +1,4 @@
-﻿namespace CashFlow.Communication.Responses
+﻿namespace CashFlow.Communication.Responses.Register
 {
     public class RegisteredExpenseResponse
     {
