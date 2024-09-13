@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\src\CashFlow.Communication\CashFlow.Communication.csproj" />
+    <ProjectReference Include="..\src\CashFlow.Exception\CashFlow.Exception.csproj" />
+    <ProjectReference Include="..\src\ClashFlow.Domain\CashFlow.Domain.csproj" />
+  </ItemGroup>
+
+</Project>
