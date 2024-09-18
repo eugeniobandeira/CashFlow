@@ -4,15 +4,21 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CashFlow.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("v1/api/expenses")]
     [ApiController]
     public class ExpensesController : ControllerBase
     {
+        private readonly IRegisterExpenseUseCase _useCase;
+
+        public ExpensesController(IRegisterExpenseUseCase registerExpenseUseCase)
+        {
+            _useCase = registerExpenseUseCase;
+        }
+
         [HttpPost]
         public IActionResult Register([FromBody] InsertExpenseRequest req)
         {
-            var useCase = new RegisterExpenseUseCase();
-            var response = useCase.Execute(req);
+            var response = _useCase.Execute(req);
 
             return Created(string.Empty, response);
         }

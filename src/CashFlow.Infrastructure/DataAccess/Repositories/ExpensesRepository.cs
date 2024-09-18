@@ -5,10 +5,15 @@ namespace CashFlow.Infrastructure.DataAccess.Repositories
 {
     internal class ExpensesRepository : IExpensesRepository
     {
-        private readonly 
+        private readonly CashFlowDbContext _context;
+
+        public ExpensesRepository(CashFlowDbContext cashFlowDbContext)
+        {
+            _context = cashFlowDbContext;
+        }
         public void Add(ExpenseEntity expenseEntity)
         {
-            throw new NotImplementedException();
+            _context.Expenses.Add(expenseEntity);
         }
     }
 }
