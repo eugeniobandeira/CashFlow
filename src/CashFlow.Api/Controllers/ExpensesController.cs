@@ -6,19 +6,14 @@ namespace CashFlow.Api.Controllers
 {
     [Route("v1/api/expenses")]
     [ApiController]
-    public class ExpensesController : ControllerBase
+    public class ExpensesController(IRegisterExpenseUseCase registerExpenseUseCase) : ControllerBase
     {
-        private readonly IRegisterExpenseUseCase _useCase;
-
-        public ExpensesController(IRegisterExpenseUseCase registerExpenseUseCase)
-        {
-            _useCase = registerExpenseUseCase;
-        }
+        private readonly IRegisterExpenseUseCase _useCase = registerExpenseUseCase;
 
         [HttpPost]
-        public IActionResult Register([FromBody] InsertExpenseRequest req)
+        public async Task<IActionResult> Register([FromBody] InsertExpenseRequest req)
         {
-            var response = _useCase.Execute(req);
+            var response = await _useCase.Execute(req);
 
             return Created(string.Empty, response);
         }

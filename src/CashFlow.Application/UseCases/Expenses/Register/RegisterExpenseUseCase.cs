@@ -7,18 +7,12 @@ using CashFlow.Exception.ExceptionBase;
 
 namespace CashFlow.Application.UseCases.Expenses.Register
 {
-    public class RegisterExpenseUseCase : IRegisterExpenseUseCase
+    public class RegisterExpenseUseCase(IExpensesRepository expensesRepository, IUnitOfWork unitOfWork) : IRegisterExpenseUseCase
     {
-        private readonly IExpensesRepository _repository;
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly IExpensesRepository _repository = expensesRepository;
+        private readonly IUnitOfWork _unitOfWork = unitOfWork;
 
-        public RegisterExpenseUseCase(IExpensesRepository expensesRepository, IUnitOfWork unitOfWork)
-        {
-            _repository = expensesRepository;
-            _unitOfWork = unitOfWork;
-        }
-
-        public RegisteredExpenseResponse Execute(InsertExpenseRequest req)
+        public async Task<RegisteredExpenseResponse> Execute(InsertExpenseRequest req)
         {
             Validate(req);
 
@@ -32,8 +26,8 @@ namespace CashFlow.Application.UseCases.Expenses.Register
                 TP_PAYMENT = (Domain.Enums.PaymentTypeEnum)req.PaymentType,
             };
 
-            _repository.Add(entity);
-            _unitOfWork.Commit();
+            await _repository.Add(entity);
+            await _unitOfWork.Commit();
 
             return new RegisteredExpenseResponse();
         }

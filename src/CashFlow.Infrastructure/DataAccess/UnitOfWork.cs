@@ -2,14 +2,10 @@
 
 namespace CashFlow.Infrastructure.DataAccess
 {
-    internal class UnitOfWork : IUnitOfWork
+    internal class UnitOfWork(CashFlowDbContext cashFlowDbContext) : IUnitOfWork
     {
-        private readonly CashFlowDbContext _dbContext;
+        private readonly CashFlowDbContext _dbContext = cashFlowDbContext;
 
-        public UnitOfWork(CashFlowDbContext cashFlowDbContext)
-        {
-            _dbContext = cashFlowDbContext;
-        }
-        public void Commit() =>  _dbContext.SaveChanges();
+        public async Task Commit() => await _dbContext.SaveChangesAsync();
     }
 }

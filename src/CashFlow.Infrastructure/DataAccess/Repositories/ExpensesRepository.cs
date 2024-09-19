@@ -3,17 +3,13 @@ using CashFlow.Domain.Interface.Expenses;
 
 namespace CashFlow.Infrastructure.DataAccess.Repositories
 {
-    internal class ExpensesRepository : IExpensesRepository
+    internal class ExpensesRepository(CashFlowDbContext cashFlowDbContext) : IExpensesRepository
     {
-        private readonly CashFlowDbContext _context;
+        private readonly CashFlowDbContext _context = cashFlowDbContext;
 
-        public ExpensesRepository(CashFlowDbContext cashFlowDbContext)
+        public async Task Add(ExpenseEntity expenseEntity)
         {
-            _context = cashFlowDbContext;
-        }
-        public void Add(ExpenseEntity expenseEntity)
-        {
-            _context.Expenses.Add(expenseEntity);
+            await _context.Expenses.AddAsync(expenseEntity);
         }
     }
 }
