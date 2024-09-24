@@ -5,12 +5,12 @@
         public List<string> ErrorMessage { get; set; }
         public ErrorResponse(string errorMessage)
         {
-            ErrorMessage = [];
+            ErrorMessage = new List<string> { errorMessage };
         }
 
         public ErrorResponse(List<string> errorMessage)
         {
-            ErrorMessage = errorMessage;
+            ErrorMessage = errorMessage ?? new List<string>();
         }
     }
 }

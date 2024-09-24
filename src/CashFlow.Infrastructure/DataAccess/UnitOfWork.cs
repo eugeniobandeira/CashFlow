@@ -20,7 +20,7 @@ namespace CashFlow.Infrastructure.DataAccess
             }
             catch (DbUpdateException ex) 
             { 
-                throw new Exception($"Erro x", ex);
+                throw new Exception($"Error: ", ex);
             }
         }
     }

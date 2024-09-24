@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using CashFlow.Communication.Responses.Register;
 using CashFlow.Domain.Interface.Expenses;
+using CashFlow.Exception;
+using CashFlow.Exception.ExceptionBase;
 
 namespace CashFlow.Application.UseCases.Expenses.GetById
 {
@@ -17,7 +19,10 @@ namespace CashFlow.Application.UseCases.Expenses.GetById
         public async Task<RegisteredExpenseResponse> Execute(long id)
         {
             var result = await _repository.GetExpensebyIdAsync(id);
-            
+
+            if (result is null)
+                throw new NotFoundException(ErrorMessageResource.EXPENSE_NOT_FOUND);
+
             return _mapper.Map<RegisteredExpenseResponse>(result);
         }
     }

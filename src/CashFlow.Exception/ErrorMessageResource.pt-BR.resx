@@ -123,6 +123,9 @@
   <data name="EXPENSE_DATA_INVALID" xml:space="preserve">
     <value>Não é permitido utilizar uma data futura</value>
   </data>
+  <data name="EXPENSE_NOT_FOUND" xml:space="preserve">
+    <value>O id da despesa não foi encontrado</value>
+  </data>
   <data name="PAYMENT_TYPE_INVALID" xml:space="preserve">
     <value>Tipo de pagamento inválido</value>
   </data>
