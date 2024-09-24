@@ -29,7 +29,7 @@ namespace CashFlow.Application.UseCases.Expenses.Register
 
             var entity = _mapper.Map<ExpenseEntity>(req);
 
-            await _repository.Add(entity);
+            await _repository.AddAsync(entity);
 
             await _unitOfWork.Commit();
 

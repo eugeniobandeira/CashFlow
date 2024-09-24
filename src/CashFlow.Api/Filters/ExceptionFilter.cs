@@ -6,8 +6,15 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace CashFlow.Api.Filters
 {
+    /// <summary>
+    /// Filter
+    /// </summary>
     public class ExceptionFilter : IExceptionFilter
     {
+        /// <summary>
+        /// Exception treatment
+        /// </summary>
+        /// <param name="context"></param>
         public void OnException(ExceptionContext context)
         {
             if (context.Exception is CashFlowException)

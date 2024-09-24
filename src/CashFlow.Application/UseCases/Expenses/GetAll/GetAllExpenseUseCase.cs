@@ -12,7 +12,7 @@ namespace CashFlow.Application.UseCases.Expenses.GetAll
         private readonly IMapper _mapper = mapper;
         public async Task<ExpensesResponseList> Execute()
         {
-            var result = await _repository.GetAll();
+            var result = await _repository.GetAllAsync();
 
             return new ExpensesResponseList
             {

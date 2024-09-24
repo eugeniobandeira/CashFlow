@@ -13,14 +13,19 @@ namespace CashFlow.Infrastructure.DataAccess.Repositories
             _context = cashFlowDbContext;
         }
 
-        public async Task Add(ExpenseEntity expenseEntity)
+        public async Task AddAsync(ExpenseEntity expenseEntity)
         {
             await _context.Expenses.AddAsync(expenseEntity);
         }
 
-        public async Task<List<ExpenseEntity>> GetAll()
+        public async Task<List<ExpenseEntity>> GetAllAsync()
         {
-            return await _context.Expenses.ToListAsync();
+            return await _context.Expenses.AsNoTracking().ToListAsync();
+        }
+
+        public async Task<ExpenseEntity?> GetExpensebyIdAsync(long id)
+        {
+            return await _context.Expenses.AsNoTracking().FirstOrDefaultAsync(exp => exp.Id == id);
         }
     }
 }

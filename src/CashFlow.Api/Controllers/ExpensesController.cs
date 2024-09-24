@@ -1,4 +1,5 @@
 ﻿using CashFlow.Application.UseCases.Expenses.GetAll;
+using CashFlow.Application.UseCases.Expenses.GetById;
 using CashFlow.Application.UseCases.Expenses.Register;
 using CashFlow.Communication.Requests;
 using CashFlow.Communication.Responses.Error;
@@ -39,7 +40,7 @@ namespace CashFlow.Api.Controllers
         {
             var response = await _useCase.Execute(req);
 
-            return Created(string.Empty, response);
+            return CreatedAtAction(nameof(GetExpenseById), new { id = response.Id }, response);
         }
 
         /// <summary>
@@ -58,6 +59,26 @@ namespace CashFlow.Api.Controllers
                 return Ok(response);
 
             return NoContent();
+        }
+
+        /// <summary>
+        /// Get an expense by its Id
+        /// </summary>
+        /// <param name="useCase"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("{id}")]
+        [ProducesResponseType(typeof(RegisteredExpenseResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetExpenseById([FromServices] IGetExpenseByIdUseCase useCase, long id)
+        {
+            var response = await useCase.Execute(id);
+
+            if (response.Id > 0)
+                return Ok(response);
+
+            return BadRequest();
         }
     }
 }
