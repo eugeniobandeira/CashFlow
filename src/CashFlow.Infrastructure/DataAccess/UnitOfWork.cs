@@ -1,11 +1,27 @@
 ﻿using CashFlow.Domain.Interface;
+using Microsoft.EntityFrameworkCore;
 
 namespace CashFlow.Infrastructure.DataAccess
 {
-    internal class UnitOfWork(CashFlowDbContext cashFlowDbContext) : IUnitOfWork
+    internal class UnitOfWork : IUnitOfWork
     {
-        private readonly CashFlowDbContext _dbContext = cashFlowDbContext;
+        private readonly CashFlowDbContext _dbContext;
 
-        public async Task Commit() => await _dbContext.SaveChangesAsync();
+        public UnitOfWork(CashFlowDbContext cashFlowDbContext)
+        {
+            _dbContext = cashFlowDbContext;
+        }
+        public async Task Commit()
+        {
+            try
+            {
+                if (_dbContext.ChangeTracker.HasChanges())
+                    await _dbContext.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex) 
+            { 
+                throw new Exception($"Erro x", ex);
+            }
+        }
     }
 }

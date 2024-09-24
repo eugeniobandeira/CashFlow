@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using CashFlow.Communication.Requests;
+using CashFlow.Communication.Responses;
+using CashFlow.Communication.Responses.Register;
 using CashFlow.Domain.Entities;
 
 namespace CashFlow.Application.AutoMapper
@@ -12,10 +14,15 @@ namespace CashFlow.Application.AutoMapper
             EntityToResponse();
         }
 
-        private void RequestToEntity() 
-            => CreateMap<InsertExpenseRequest, ExpenseEntity>();
+        private void RequestToEntity()
+        {
+            CreateMap<InsertExpenseRequest, ExpenseEntity>();
+        }
 
-        private void EntityToResponse() 
-            => CreateMap<ExpenseEntity, InsertExpenseRequest>();
+        private void EntityToResponse()
+        {
+            CreateMap<ExpenseEntity, RegisteredExpenseResponse>();
+            CreateMap<ExpenseEntity, ShortExpenseResponse>();
+        }
     }
 }

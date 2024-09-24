@@ -8,16 +8,21 @@ using CashFlow.Exception.ExceptionBase;
 
 namespace CashFlow.Application.UseCases.Expenses.Register
 {
-    public class RegisterExpenseUseCase(
-        IExpensesRepository expensesRepository, 
-        IUnitOfWork unitOfWork, 
-        IMapper mapper) 
-        : IRegisterExpenseUseCase
+    public class RegisterExpenseUseCase : IRegisterExpenseUseCase
     {
-        private readonly IExpensesRepository _repository = expensesRepository;
-        private readonly IUnitOfWork _unitOfWork = unitOfWork;
-        private readonly IMapper _mapper = mapper;
+        private readonly IExpensesRepository _repository;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper ;
 
+        public RegisterExpenseUseCase(
+            IExpensesRepository expensesRepository,
+            IUnitOfWork unitOfWork,
+            IMapper mapper)
+        {
+            _repository = expensesRepository;
+            _unitOfWork = unitOfWork;
+            _mapper = mapper;
+        }
         public async Task<RegisteredExpenseResponse> Execute(InsertExpenseRequest req)
         {
             Validate(req);
