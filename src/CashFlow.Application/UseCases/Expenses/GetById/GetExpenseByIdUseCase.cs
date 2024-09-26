@@ -8,17 +8,17 @@ namespace CashFlow.Application.UseCases.Expenses.GetById
 {
     internal class GetExpenseByIdUseCase : IGetExpenseByIdUseCase
     {
-        private readonly IExpensesRepository _repository;
+        private readonly IExpensesReadOnlyRepository _repository;
         private readonly IMapper _mapper;
 
-        public GetExpenseByIdUseCase(IExpensesRepository expensesRepository, IMapper mapper)
+        public GetExpenseByIdUseCase(IExpensesReadOnlyRepository expensesRepository, IMapper mapper)
         {
             _repository = expensesRepository;
             _mapper = mapper;
         }
         public async Task<RegisteredExpenseResponse> Execute(long id)
         {
-            var result = await _repository.GetExpensebyIdAsync(id);
+            var result = await _repository.GetByIdAsync(id);
 
             if (result is null)
                 throw new NotFoundException(ErrorMessageResource.EXPENSE_NOT_FOUND);

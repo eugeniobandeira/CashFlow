@@ -6,9 +6,9 @@ using CashFlow.Domain.Interface.Expenses;
 
 namespace CashFlow.Application.UseCases.Expenses.GetAll
 {
-    internal class GetAllExpenseUseCase(IExpensesRepository expensesRepository, IMapper mapper) : IGetAllExpenseUseCase
+    internal class GetAllExpenseUseCase(IExpensesReadOnlyRepository expensesRepository, IMapper mapper) : IGetAllExpenseUseCase
     {
-        private readonly IExpensesRepository _repository = expensesRepository;
+        private readonly IExpensesReadOnlyRepository _repository = expensesRepository;
         private readonly IMapper _mapper = mapper;
         public async Task<ExpensesResponseList> Execute()
         {

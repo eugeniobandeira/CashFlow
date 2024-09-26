@@ -2,10 +2,9 @@
 
 namespace CashFlow.Domain.Interface.Expenses
 {
-    public interface IExpensesRepository
+    public interface IExpensesReadOnlyRepository
     {
-        Task AddAsync(ExpenseEntity expense);
         Task<List<ExpenseEntity>> GetAllAsync();
-        Task<ExpenseEntity?> GetExpensebyIdAsync(long id);
+        Task<ExpenseEntity?> GetByIdAsync(long id);
     }
 }

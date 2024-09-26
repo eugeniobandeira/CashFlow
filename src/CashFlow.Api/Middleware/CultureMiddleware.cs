@@ -18,6 +18,11 @@ namespace CashFlow.Api.Middleware
             _next = next;
         }
 
+        /// <summary>
+        /// HttpContext
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
         public async Task Invoke(HttpContext context)
         {
             var supportedLanguages = CultureInfo.GetCultures(CultureTypes.AllCultures).ToList();
