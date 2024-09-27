@@ -1,38 +1,42 @@
 ﻿using AutoMapper;
 using CashFlow.Communication.Requests;
 using CashFlow.Communication.Responses.Register;
-using CashFlow.Domain.Entities;
 using CashFlow.Domain.Interface;
 using CashFlow.Domain.Interface.Expenses;
+using CashFlow.Exception;
 using CashFlow.Exception.ExceptionBase;
 
-namespace CashFlow.Application.UseCases.Expenses.Register
+namespace CashFlow.Application.UseCases.Expenses.Update
 {
-    public class RegisterExpenseUseCase : IRegisterExpenseUseCase
+    internal class UpdateExpenseUseCase : IUpdateExpenseUseCase
     {
-        private readonly IExpensesWriteOnlyRepository _repository;
+        private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper ;
+        private readonly IExpenseUpdateOnlyRepository _repository;
 
-        public RegisterExpenseUseCase(
-            IExpensesWriteOnlyRepository expensesRepository,
+        public UpdateExpenseUseCase(
+            IMapper mapper, 
             IUnitOfWork unitOfWork,
-            IMapper mapper)
+            IExpenseUpdateOnlyRepository expenseUpdateOnlyRepository)
         {
-            _repository = expensesRepository;
-            _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _unitOfWork = unitOfWork;
+            _repository = expenseUpdateOnlyRepository;
         }
-        public async Task<RegisteredExpenseResponse> Execute(ExpenseRequest req)
+
+        public async Task<RegisteredExpenseResponse> Execute(long id, ExpenseRequest req)
         {
             Validate(req);
 
-            var entity = _mapper.Map<ExpenseEntity>(req);
+            var entity = await _repository.GetByIdAsync(id) ?? 
+                throw new NotFoundException(ErrorMessageResource.EXPENSE_NOT_FOUND);
 
-            await _repository.AddAsync(entity);
+            _mapper.Map(req, entity);
 
-            await _unitOfWork.Commit();
+            _repository.Update(entity);
 
+            await _unitOfWork.Commit();  
+            
             return _mapper.Map<RegisteredExpenseResponse>(entity);
         }
 

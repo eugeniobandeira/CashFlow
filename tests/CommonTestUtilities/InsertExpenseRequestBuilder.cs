@@ -6,9 +6,9 @@ namespace CommonTestUtilities
 {
     public class InsertExpenseRequestBuilder
     {
-        public static InsertExpenseRequest Build()
+        public static ExpenseRequest Build()
         {
-            return new Faker<InsertExpenseRequest>()
+            return new Faker<ExpenseRequest>()
                 .RuleFor(r => r.Title, faker => faker.Commerce.ProductName())
                 .RuleFor(r => r.Description, faker => faker.Commerce.ProductDescription())
                 .RuleFor(r => r.Date, faker => faker.Date.Past())

@@ -1,6 +1,6 @@
 ﻿namespace CashFlow.Domain.Interface.Expenses
 {
-    public interface IExpenseDeleteRepository
+    public interface IExpenseDeleteOnlyRepository
     {
         /// <summary>
         /// This function returns TRUE if the deletion was successfull

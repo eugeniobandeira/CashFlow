@@ -2,6 +2,7 @@
 using CashFlow.Application.UseCases.Expenses.GetAll;
 using CashFlow.Application.UseCases.Expenses.GetById;
 using CashFlow.Application.UseCases.Expenses.Register;
+using CashFlow.Application.UseCases.Expenses.Update;
 using CashFlow.Communication.Requests;
 using CashFlow.Communication.Responses.Error;
 using CashFlow.Communication.Responses.Register;
@@ -16,30 +17,21 @@ namespace CashFlow.Api.Controllers
     [ApiController]
     public class ExpensesController : ControllerBase
     {
-        private readonly IRegisterExpenseUseCase _useCase;
-
-        /// <summary>
-        /// Expenses controller constructor
-        /// </summary>
-        /// <param name="registerExpenseUseCase"></param>
-        public ExpensesController(IRegisterExpenseUseCase registerExpenseUseCase)
-        {
-            _useCase = registerExpenseUseCase;
-        }
 
         /// <summary>
         /// Register a new expense in the system
         /// </summary>
         /// <param name="req">Object containing the necessary data to create a new expense register</param>
+        /// <param name="useCase">Service</param>
         /// <returns>Return the registered object or an error on validation</returns>
         /// <response code="201">Succeeded</response>
         /// <response code="400">Error while creating the register</response>
         [HttpPost]
         [ProducesResponseType(typeof(RegisteredExpenseResponse), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> Register([FromBody] InsertExpenseRequest req)
+        public async Task<IActionResult> Register([FromServices] IRegisterExpenseUseCase useCase, [FromBody] ExpenseRequest req)
         {
-            var response = await _useCase.Execute(req);
+            var response = await useCase.Execute(req);
 
             return CreatedAtAction(nameof(GetExpenseById), new { id = response.Id }, response);
         }
@@ -80,6 +72,27 @@ namespace CashFlow.Api.Controllers
                 return Ok(response);
 
             return BadRequest();
+        }
+
+        /// <summary>
+        /// Updates an expense by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="req"></param>
+        /// <param name="useCase"></param>
+        /// <returns></returns>
+        [HttpPut]
+        [Route("{id}")]
+        [ProducesResponseType(typeof(RegisteredExpenseResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> Update(
+            [FromRoute] long id,
+            [FromBody] ExpenseRequest req,
+            [FromServices] IUpdateExpenseUseCase useCase)
+        {
+            var response = await useCase.Execute(id, req);
+
+            return Ok(response);
         }
 
         /// <summary>

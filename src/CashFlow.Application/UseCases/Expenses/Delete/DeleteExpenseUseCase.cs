@@ -7,11 +7,11 @@ namespace CashFlow.Application.UseCases.Expenses.Delete
 {
     internal class DeleteExpenseUseCase : IDeleteExpenseUseCase
     {
-        private readonly IExpenseDeleteRepository _repository;
+        private readonly IExpenseDeleteOnlyRepository _repository;
         private readonly IUnitOfWork _unitOfWork;
 
         public DeleteExpenseUseCase(
-            IExpenseDeleteRepository expenseDeleteRepository,
+            IExpenseDeleteOnlyRepository expenseDeleteRepository,
             IUnitOfWork unitOfWork)
         {
             _repository = expenseDeleteRepository;

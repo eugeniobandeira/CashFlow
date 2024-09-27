@@ -16,7 +16,7 @@ namespace CashFlow.Application.AutoMapper
 
         private void RequestToEntity()
         {
-            CreateMap<InsertExpenseRequest, ExpenseEntity>();
+            CreateMap<ExpenseRequest, ExpenseEntity>();
         }
 
         private void EntityToResponse()
