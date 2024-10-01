@@ -29,7 +29,9 @@ namespace CashFlow.Infrastructure.DataAccess.Repositories
 
         async Task<ExpenseEntity?> IExpensesReadOnlyRepository.GetByIdAsync(long id)
         {
-            return await _context.Expenses.AsNoTracking().FirstOrDefaultAsync(exp => exp.Id == id);
+            return await _context.Expenses
+                .AsNoTracking()
+                .FirstOrDefaultAsync(exp => exp.Id == id);
         }
 
         async Task<ExpenseEntity?> IExpenseUpdateOnlyRepository.GetByIdAsync(long id)
@@ -52,6 +54,33 @@ namespace CashFlow.Infrastructure.DataAccess.Repositories
         public void Update(ExpenseEntity entity)
         {
             _context.Expenses.Update(entity);
+        }
+
+        public async Task<List<ExpenseEntity>> FilterByMonth(DateOnly date)
+        {
+            var startDate = new DateTime(
+                year: date.Year,
+                month: date.Month,
+                day: 1).Date;
+
+            var daysInMonth = DateTime.DaysInMonth(
+                year: date.Year, 
+                month: date.Month);
+
+            var endDate = new DateTime(
+                year: date.Year,
+                month: date.Month,
+                day: daysInMonth,
+                hour: 23,
+                minute: 59,
+                second: 59);
+
+            return await _context.Expenses
+                .AsNoTracking()
+                .Where(exp => exp.Date >= startDate && exp.Date <= endDate)
+                .OrderBy(exp => exp.Date)
+                .ThenBy(exp => exp.Title)
+                .ToListAsync();
         }
     }
 }

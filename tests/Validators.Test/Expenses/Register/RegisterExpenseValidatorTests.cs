@@ -1,7 +1,7 @@
-﻿using CashFlow.Application.UseCases.Expenses.Register;
+﻿using CashFlow.Application.UseCases.Expenses;
 using CashFlow.Communication.Enums;
 using CashFlow.Exception;
-using CommonTestUtilities;
+using CommonTestUtilities.Requests;
 using FluentAssertions;
 
 namespace Validators.Test.Expenses.Register
@@ -12,7 +12,7 @@ namespace Validators.Test.Expenses.Register
         public void Success()
         {
             //Assert
-            var validator = new RegisterExpenseValidator();
+            var validator = new ExpenseValidator();
             var req = InsertExpenseRequestBuilder.Build();
         
             //Act
@@ -29,7 +29,7 @@ namespace Validators.Test.Expenses.Register
         public void Error_Title_Empty(string title) 
         {
             //Assert
-            var validator = new RegisterExpenseValidator();
+            var validator = new ExpenseValidator();
             var req = InsertExpenseRequestBuilder.Build();
             req.Title = title;
 
@@ -50,7 +50,7 @@ namespace Validators.Test.Expenses.Register
         public void Error_Date_Future()
         {
             //Assert
-            var validator = new RegisterExpenseValidator();
+            var validator = new ExpenseValidator();
             var req = InsertExpenseRequestBuilder.Build();
             req.Date = DateTime.UtcNow.AddDays(1);
 
@@ -71,7 +71,7 @@ namespace Validators.Test.Expenses.Register
         public void Error_Payment_Type_Invalid()
         {
             //Assert
-            var validator = new RegisterExpenseValidator();
+            var validator = new ExpenseValidator();
             var req = InsertExpenseRequestBuilder.Build();
             req.PaymentType = (PaymentTypeEnum)9999;
 
@@ -94,7 +94,7 @@ namespace Validators.Test.Expenses.Register
         public void Error_Amount_Invalid(decimal amount)
         {
             //Assert
-            var validator = new RegisterExpenseValidator();
+            var validator = new ExpenseValidator();
             var req = InsertExpenseRequestBuilder.Build();
             req.Amount = amount;
 
