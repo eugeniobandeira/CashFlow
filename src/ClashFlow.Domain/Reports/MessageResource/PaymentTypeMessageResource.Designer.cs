@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CashFlow.Domain.Reports {
+namespace CashFlow.Domain.Reports.MessageResource {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace CashFlow.Domain.Reports {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("CashFlow.Domain.Reports.PaymentTypeMessageResource", typeof(PaymentTypeMessageResource).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("CashFlow.Domain.Reports.MessageResource.PaymentTypeMessageResource", typeof(PaymentTypeMessageResource).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -90,9 +90,9 @@ namespace CashFlow.Domain.Reports {
         /// <summary>
         ///   Looks up a localized string similar to Eletronic Transfer.
         /// </summary>
-        public static string ELETRONIC_TARNSFER {
+        public static string ELETRONIC_TRANSFER {
             get {
-                return ResourceManager.GetString("ELETRONIC_TARNSFER", resourceCulture);
+                return ResourceManager.GetString("ELETRONIC_TRANSFER", resourceCulture);
             }
         }
     }

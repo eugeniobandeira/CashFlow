@@ -1,6 +1,6 @@
 ﻿using CashFlow.Domain.Enums;
 using CashFlow.Domain.Interface.Expenses;
-using CashFlow.Domain.Reports;
+using CashFlow.Domain.Reports.MessageResource;
 using ClosedXML.Excel;
 
 namespace CashFlow.Application.UseCases.Expenses.Reports.Excel
@@ -27,7 +27,7 @@ namespace CashFlow.Application.UseCases.Expenses.Reports.Excel
             workbook.Style.Font.FontSize = 12;
             workbook.Style.Font.FontName = "Times New Roman";
 
-            var worksheet = workbook.Worksheets.Add($"report {month.ToString("Y")}");
+            var worksheet = workbook.Worksheets.Add($"report {month: Y}");
 
             InsertHeader(worksheet);
 
@@ -80,7 +80,7 @@ namespace CashFlow.Application.UseCases.Expenses.Reports.Excel
             {
                 PaymentTypeEnum.Cash => PaymentTypeMessageResource.CASH,
                 PaymentTypeEnum.CreditCard => PaymentTypeMessageResource.CREDIT_CARD,
-                PaymentTypeEnum.EletronicTransfer => PaymentTypeMessageResource.ELETRONIC_TARNSFER,
+                PaymentTypeEnum.EletronicTransfer => PaymentTypeMessageResource.ELETRONIC_TRANSFER,
                 PaymentTypeEnum.DebitCard => PaymentTypeMessageResource.DEBIT_CARD,
                 _ => string.Empty
             };

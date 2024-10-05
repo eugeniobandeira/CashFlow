@@ -117,16 +117,34 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AMOUNT" xml:space="preserve">
+    <value>Quantia</value>
+  </data>
   <data name="CASH" xml:space="preserve">
     <value>Dinheiro</value>
   </data>
   <data name="CREDIT_CARD" xml:space="preserve">
     <value>Cartão de Crédito</value>
   </data>
+  <data name="DATE" xml:space="preserve">
+    <value>Data</value>
+  </data>
   <data name="DEBIT_CARD" xml:space="preserve">
     <value>Cartão de Débito</value>
   </data>
-  <data name="ELETRONIC_TARNSFER" xml:space="preserve">
+  <data name="DESCRIPTION" xml:space="preserve">
+    <value>Descrição</value>
+  </data>
+  <data name="ELETRONIC_TRANSFER" xml:space="preserve">
     <value>Transferência Eletrônica</value>
+  </data>
+  <data name="EXPENSES_FOR" xml:space="preserve">
+    <value>Despesa para</value>
+  </data>
+  <data name="TITLE" xml:space="preserve">
+    <value>Título</value>
+  </data>
+  <data name="TOTAL_SPENT_IN" xml:space="preserve">
+    <value>Total gasto em {0}</value>
   </data>
 </root>
