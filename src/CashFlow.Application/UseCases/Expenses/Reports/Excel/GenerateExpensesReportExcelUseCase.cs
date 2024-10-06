@@ -1,4 +1,5 @@
 ﻿using CashFlow.Domain.Enums;
+using CashFlow.Domain.Extensions;
 using CashFlow.Domain.Interface.Expenses;
 using CashFlow.Domain.Reports.MessageResource;
 using ClosedXML.Excel;
@@ -36,7 +37,7 @@ namespace CashFlow.Application.UseCases.Expenses.Reports.Excel
             {
                 worksheet.Cell($"A{row}").Value = exp.Title;
                 worksheet.Cell($"B{row}").Value = exp.Date;
-                worksheet.Cell($"C{row}").Value = ConvertPaymentType(exp.PaymentType);
+                worksheet.Cell($"C{row}").Value = exp.PaymentType.PaymentTypeToString();
 
                 worksheet.Cell($"D{row}").Value = exp.Amount;
                 worksheet.Cell($"D{row}").Style.NumberFormat.Format = $"-{CURRENCY_SYMBOL} #,##0.00";
@@ -72,18 +73,6 @@ namespace CashFlow.Application.UseCases.Expenses.Reports.Excel
             worksheet.Cell("E1").Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
             worksheet.Cell("D1").Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Right);
 
-        }
-
-        private static string ConvertPaymentType(PaymentTypeEnum payment)
-        {
-            return payment switch
-            {
-                PaymentTypeEnum.Cash => PaymentTypeMessageResource.CASH,
-                PaymentTypeEnum.CreditCard => PaymentTypeMessageResource.CREDIT_CARD,
-                PaymentTypeEnum.EletronicTransfer => PaymentTypeMessageResource.ELETRONIC_TRANSFER,
-                PaymentTypeEnum.DebitCard => PaymentTypeMessageResource.DEBIT_CARD,
-                _ => string.Empty
-            };
         }
     }
 }
