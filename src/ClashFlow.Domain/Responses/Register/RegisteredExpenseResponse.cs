@@ -1,6 +1,6 @@
-﻿using CashFlow.Communication.Enums;
+﻿using CashFlow.Domain.Enums;
 
-namespace CashFlow.Communication.Responses.Register
+namespace CashFlow.Domain.Responses.Register
 {
     public class RegisteredExpenseResponse
     {

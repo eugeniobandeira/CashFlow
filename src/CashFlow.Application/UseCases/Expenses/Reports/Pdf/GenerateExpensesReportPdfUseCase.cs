@@ -2,7 +2,7 @@
 using CashFlow.Application.UseCases.Expenses.Reports.Pdf.Fonts;
 using CashFlow.Domain.Extensions;
 using CashFlow.Domain.Interface.Expenses;
-using CashFlow.Domain.Reports.MessageResource;
+using CashFlow.Domain.MessageResource;
 using MigraDoc.DocumentObjectModel;
 using MigraDoc.DocumentObjectModel.Tables;
 using MigraDoc.Rendering;

@@ -1,4 +1,4 @@
-﻿namespace CashFlow.Communication.Responses.Error
+﻿namespace CashFlow.Domain.Responses.Error
 {
     public class ErrorResponse
     {

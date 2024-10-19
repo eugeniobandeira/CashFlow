@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using CashFlow.Communication.Requests;
-using CashFlow.Communication.Responses.Register;
+using CashFlow.Domain.Requests;
+using CashFlow.Domain.Responses.Register;
 using CashFlow.Domain.Interface;
 using CashFlow.Domain.Interface.Expenses;
 using CashFlow.Exception;

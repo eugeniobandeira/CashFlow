@@ -1,4 +1,4 @@
-﻿namespace CashFlow.Communication.Responses.Register
+﻿namespace CashFlow.Domain.Responses.Register
 {
     public class ExpensesResponseList
     {

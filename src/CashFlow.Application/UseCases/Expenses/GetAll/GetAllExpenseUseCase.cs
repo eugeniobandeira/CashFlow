@@ -1,7 +1,6 @@
-﻿
-using AutoMapper;
-using CashFlow.Communication.Responses;
-using CashFlow.Communication.Responses.Register;
+﻿using AutoMapper;
+using CashFlow.Domain.Responses;
+using CashFlow.Domain.Responses.Register;
 using CashFlow.Domain.Interface.Expenses;
 
 namespace CashFlow.Application.UseCases.Expenses.GetAll

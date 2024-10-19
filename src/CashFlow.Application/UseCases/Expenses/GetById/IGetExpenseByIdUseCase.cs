@@ -1,4 +1,4 @@
-﻿using CashFlow.Communication.Responses.Register;
+﻿using CashFlow.Domain.Responses.Register;
 
 namespace CashFlow.Application.UseCases.Expenses.GetById
 {

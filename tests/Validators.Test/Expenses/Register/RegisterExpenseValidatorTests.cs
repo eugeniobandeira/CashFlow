@@ -1,5 +1,5 @@
 ﻿using CashFlow.Application.UseCases.Expenses;
-using CashFlow.Communication.Enums;
+using CashFlow.Domain.Enums;
 using CashFlow.Exception;
 using CommonTestUtilities.Requests;
 using FluentAssertions;

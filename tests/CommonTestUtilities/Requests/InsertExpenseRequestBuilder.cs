@@ -1,6 +1,6 @@
 ﻿using Bogus;
-using CashFlow.Communication.Enums;
-using CashFlow.Communication.Requests;
+using CashFlow.Domain.Requests;
+using CashFlow.Domain.Enums;
 
 namespace CommonTestUtilities.Requests
 {
