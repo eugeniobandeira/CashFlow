@@ -7,6 +7,7 @@ namespace CashFlow.Infrastructure.DataAccess
     {
         public CashFlowDbContext(DbContextOptions<CashFlowDbContext> options) : base(options) { }
         public DbSet<ExpenseEntity> Expenses { get; set; }
+        public DbSet<UserEntity> Users { get; set; }
 
     }
 }

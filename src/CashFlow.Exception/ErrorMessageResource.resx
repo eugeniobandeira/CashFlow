@@ -120,11 +120,44 @@
   <data name="AMOUNT_MUST_BE_GREATER_THAN_ZERO" xml:space="preserve">
     <value>The amount must be higher than zero</value>
   </data>
+  <data name="EMAIL_ALREADY_REGISTERED" xml:space="preserve">
+    <value>Email already registered</value>
+  </data>
+  <data name="EMPTY_EMAIL" xml:space="preserve">
+    <value>Email must be provided</value>
+  </data>
+  <data name="EMPTY_NAME" xml:space="preserve">
+    <value>Name must be provided</value>
+  </data>
   <data name="EXPENSE_DATA_INVALID" xml:space="preserve">
     <value>It is not allowed to use future date</value>
   </data>
   <data name="EXPENSE_NOT_FOUND" xml:space="preserve">
     <value>The expense id was not found in the database</value>
+  </data>
+  <data name="INVALID_EMAIL" xml:space="preserve">
+    <value>This email is not valid</value>
+  </data>
+  <data name="INVALID_PASSWORD" xml:space="preserve">
+    <value>Password must be at least 8 characters, its mandatory to have an uppercase, a lowercase, a number and a special charactere (for exemple:  @, #, !, $, %)</value>
+  </data>
+  <data name="INVALID_PASSWORD_LENGTH" xml:space="preserve">
+    <value>Password must be at least 8 characters,</value>
+  </data>
+  <data name="INVALID_PASSWORD_MISSING_LOWER_CASE_LETTER" xml:space="preserve">
+    <value>Password missing lowercase letter</value>
+  </data>
+  <data name="INVALID_PASSWORD_MISSING_NUMBERS" xml:space="preserve">
+    <value>Password missing number</value>
+  </data>
+  <data name="INVALID_PASSWORD_MISSING_SPECIAL_CHARACTERE" xml:space="preserve">
+    <value>Password missing special charactere</value>
+  </data>
+  <data name="INVALID_PASSWORD_MISSING_UPPER_CASE_LETTER" xml:space="preserve">
+    <value>Password missing uppercase letter</value>
+  </data>
+  <data name="INVALID_PASSWORD_NULL_OR_WHITE_SPACE" xml:space="preserve">
+    <value>Password can not be null or witespace</value>
   </data>
   <data name="PAYMENT_TYPE_INVALID" xml:space="preserve">
     <value>Payment type not valid</value>

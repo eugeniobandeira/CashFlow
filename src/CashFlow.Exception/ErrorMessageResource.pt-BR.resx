@@ -120,11 +120,44 @@
   <data name="AMOUNT_MUST_BE_GREATER_THAN_ZERO" xml:space="preserve">
     <value>A quantidade deve ser maior que zero</value>
   </data>
+  <data name="EMAIL_ALREADY_REGISTERED" xml:space="preserve">
+    <value>Já existe um usuário para este email</value>
+  </data>
+  <data name="EMPTY_EMAIL" xml:space="preserve">
+    <value>O email deve ser informado</value>
+  </data>
+  <data name="EMPTY_NAME" xml:space="preserve">
+    <value>O nome deve ser informado</value>
+  </data>
   <data name="EXPENSE_DATA_INVALID" xml:space="preserve">
     <value>Não é permitido utilizar uma data futura</value>
   </data>
   <data name="EXPENSE_NOT_FOUND" xml:space="preserve">
     <value>O id da despesa não foi encontrado</value>
+  </data>
+  <data name="INVALID_EMAIL" xml:space="preserve">
+    <value>Email inválido</value>
+  </data>
+  <data name="INVALID_PASSWORD" xml:space="preserve">
+    <value>A senha deve ter no mínimo 8 caracteres, contendo pelo menos uma letra maiúscula, uma minúscula, um número e um caractere especial (por exemplo: @, #, !, $, %)</value>
+  </data>
+  <data name="INVALID_PASSWORD_LENGTH" xml:space="preserve">
+    <value>A senha deve ter no mínimo 8 caracteres</value>
+  </data>
+  <data name="INVALID_PASSWORD_MISSING_LOWER_CASE_LETTER" xml:space="preserve">
+    <value>A senha não possui letra minúscula</value>
+  </data>
+  <data name="INVALID_PASSWORD_MISSING_NUMBERS" xml:space="preserve">
+    <value>A senha não possui número</value>
+  </data>
+  <data name="INVALID_PASSWORD_MISSING_SPECIAL_CHARACTERE" xml:space="preserve">
+    <value>A senha não possui um caractere especial</value>
+  </data>
+  <data name="INVALID_PASSWORD_MISSING_UPPER_CASE_LETTER" xml:space="preserve">
+    <value>A senha não possui letra maiúscula</value>
+  </data>
+  <data name="INVALID_PASSWORD_NULL_OR_WHITE_SPACE" xml:space="preserve">
+    <value>A senha não pode ser nula ou espaços em branco</value>
   </data>
   <data name="PAYMENT_TYPE_INVALID" xml:space="preserve">
     <value>Tipo de pagamento inválido</value>

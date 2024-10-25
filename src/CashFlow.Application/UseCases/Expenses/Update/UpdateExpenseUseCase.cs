@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
-using CashFlow.Domain.Requests;
 using CashFlow.Domain.Responses.Register;
 using CashFlow.Domain.Interface;
 using CashFlow.Domain.Interface.Expenses;
 using CashFlow.Exception;
 using CashFlow.Exception.ExceptionBase;
+using CashFlow.Domain.Requests.Expenses;
 
 namespace CashFlow.Application.UseCases.Expenses.Update
 {

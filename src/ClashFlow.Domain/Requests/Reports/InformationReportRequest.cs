@@ -1,4 +1,4 @@
-﻿namespace CashFlow.Domain.Requests
+﻿namespace CashFlow.Domain.Requests.Reports
 {
     public class InformationReportRequest
     {

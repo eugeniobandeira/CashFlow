@@ -70,6 +70,33 @@ namespace CashFlow.Exception {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Email already registered.
+        /// </summary>
+        public static string EMAIL_ALREADY_REGISTERED {
+            get {
+                return ResourceManager.GetString("EMAIL_ALREADY_REGISTERED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email must be provided.
+        /// </summary>
+        public static string EMPTY_EMAIL {
+            get {
+                return ResourceManager.GetString("EMPTY_EMAIL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name must be provided.
+        /// </summary>
+        public static string EMPTY_NAME {
+            get {
+                return ResourceManager.GetString("EMPTY_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to It is not allowed to use future date.
         /// </summary>
         public static string EXPENSE_DATA_INVALID {
@@ -84,6 +111,78 @@ namespace CashFlow.Exception {
         public static string EXPENSE_NOT_FOUND {
             get {
                 return ResourceManager.GetString("EXPENSE_NOT_FOUND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This email is not valid.
+        /// </summary>
+        public static string INVALID_EMAIL {
+            get {
+                return ResourceManager.GetString("INVALID_EMAIL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password must be at least 8 characters, its mandatory to have an uppercase, a lowercase, a number and a special charactere (for exemple:  @, #, !, $, %).
+        /// </summary>
+        public static string INVALID_PASSWORD {
+            get {
+                return ResourceManager.GetString("INVALID_PASSWORD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password must be at least 8 characters,.
+        /// </summary>
+        public static string INVALID_PASSWORD_LENGTH {
+            get {
+                return ResourceManager.GetString("INVALID_PASSWORD_LENGTH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password missing lowercase letter.
+        /// </summary>
+        public static string INVALID_PASSWORD_MISSING_LOWER_CASE_LETTER {
+            get {
+                return ResourceManager.GetString("INVALID_PASSWORD_MISSING_LOWER_CASE_LETTER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password missing number.
+        /// </summary>
+        public static string INVALID_PASSWORD_MISSING_NUMBERS {
+            get {
+                return ResourceManager.GetString("INVALID_PASSWORD_MISSING_NUMBERS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password missing special charactere.
+        /// </summary>
+        public static string INVALID_PASSWORD_MISSING_SPECIAL_CHARACTERE {
+            get {
+                return ResourceManager.GetString("INVALID_PASSWORD_MISSING_SPECIAL_CHARACTERE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password missing uppercase letter.
+        /// </summary>
+        public static string INVALID_PASSWORD_MISSING_UPPER_CASE_LETTER {
+            get {
+                return ResourceManager.GetString("INVALID_PASSWORD_MISSING_UPPER_CASE_LETTER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password can not be null or witespace.
+        /// </summary>
+        public static string INVALID_PASSWORD_NULL_OR_WHITE_SPACE {
+            get {
+                return ResourceManager.GetString("INVALID_PASSWORD_NULL_OR_WHITE_SPACE", resourceCulture);
             }
         }
         

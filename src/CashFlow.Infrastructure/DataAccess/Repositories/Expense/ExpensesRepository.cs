@@ -2,10 +2,10 @@
 using CashFlow.Domain.Interface.Expenses;
 using Microsoft.EntityFrameworkCore;
 
-namespace CashFlow.Infrastructure.DataAccess.Repositories
+namespace CashFlow.Infrastructure.DataAccess.Repositories.Expense
 {
-    internal class ExpensesRepository : 
-        IExpensesReadOnlyRepository, 
+    internal class ExpensesRepository :
+        IExpensesReadOnlyRepository,
         IExpensesWriteOnlyRepository,
         IExpenseDeleteOnlyRepository,
         IExpenseUpdateOnlyRepository
@@ -64,7 +64,7 @@ namespace CashFlow.Infrastructure.DataAccess.Repositories
                 day: 1).Date;
 
             var daysInMonth = DateTime.DaysInMonth(
-                year: date.Year, 
+                year: date.Year,
                 month: date.Month);
 
             var endDate = new DateTime(

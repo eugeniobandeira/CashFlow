@@ -1,6 +1,6 @@
 ﻿using CashFlow.Domain.Enums;
 
-namespace CashFlow.Domain.Requests
+namespace CashFlow.Domain.Requests.Expenses
 {
     public class ExpenseRequest
     {

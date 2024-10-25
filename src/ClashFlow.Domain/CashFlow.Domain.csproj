@@ -7,12 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Update="MessageResource\PaymentTypeMessageResource.Designer.cs">
+    <Compile Update="MessageResource\PaymentType\PaymentTypeMessageResource.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>PaymentTypeMessageResource.resx</DependentUpon>
     </Compile>
-    <Compile Update="MessageResource\ReportGenerationMessagesResource.Designer.cs">
+    <Compile Update="MessageResource\Report\ReportGenerationMessagesResource.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>ReportGenerationMessagesResource.resx</DependentUpon>
@@ -20,11 +20,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="MessageResource\PaymentTypeMessageResource.resx">
+    <EmbeddedResource Update="MessageResource\PaymentType\PaymentTypeMessageResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>PaymentTypeMessageResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Update="MessageResource\ReportGenerationMessagesResource.resx">
+    <EmbeddedResource Update="MessageResource\Report\ReportGenerationMessagesResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ReportGenerationMessagesResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>

@@ -85,7 +85,7 @@ namespace CashFlow.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("UserEntity");
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("CashFlow.Domain.Entities.ExpenseEntity", b =>

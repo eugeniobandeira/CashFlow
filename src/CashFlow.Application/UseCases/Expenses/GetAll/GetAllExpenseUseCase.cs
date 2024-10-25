@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using CashFlow.Domain.Responses;
 using CashFlow.Domain.Responses.Register;
 using CashFlow.Domain.Interface.Expenses;
+using CashFlow.Domain.Responses.Expenses;
 
 namespace CashFlow.Application.UseCases.Expenses.GetAll
 {

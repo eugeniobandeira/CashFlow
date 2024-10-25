@@ -1,4 +1,4 @@
-﻿namespace CashFlow.Domain.Responses
+﻿namespace CashFlow.Domain.Responses.Expenses
 {
     public class ShortExpenseResponse
     {

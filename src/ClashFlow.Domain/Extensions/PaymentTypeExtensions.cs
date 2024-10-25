@@ -1,5 +1,5 @@
 ﻿using CashFlow.Domain.Enums;
-using CashFlow.Domain.MessageResource;
+using CashFlow.Domain.MessageResource.PaymentType;
 
 namespace CashFlow.Domain.Extensions
 {

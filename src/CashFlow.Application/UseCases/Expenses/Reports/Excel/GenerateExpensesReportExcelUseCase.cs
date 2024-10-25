@@ -1,6 +1,6 @@
 ﻿using CashFlow.Domain.Extensions;
 using CashFlow.Domain.Interface.Expenses;
-using CashFlow.Domain.MessageResource;
+using CashFlow.Domain.MessageResource.Report;
 using ClosedXML.Excel;
 
 namespace CashFlow.Application.UseCases.Expenses.Reports.Excel

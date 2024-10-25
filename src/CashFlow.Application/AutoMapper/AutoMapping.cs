@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
 using CashFlow.Domain.Entities;
-using CashFlow.Domain.Requests;
-using CashFlow.Domain.Responses;
+using CashFlow.Domain.Requests.Expenses;
+using CashFlow.Domain.Requests.Users;
+using CashFlow.Domain.Responses.Expenses;
 using CashFlow.Domain.Responses.Register;
 
 
@@ -18,6 +19,8 @@ namespace CashFlow.Application.AutoMapper
         private void RequestToEntity()
         {
             CreateMap<ExpenseRequest, ExpenseEntity>();
+            CreateMap<UserRequest, UserEntity>()
+                .ForMember(dest => dest.Password, config => config.Ignore());
         }
 
         private void EntityToResponse()

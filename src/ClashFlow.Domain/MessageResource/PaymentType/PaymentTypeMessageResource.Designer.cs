@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CashFlow.Domain.MessageResource {
+namespace CashFlow.Domain.MessageResource.PaymentType {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace CashFlow.Domain.MessageResource {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class ReportGenerationMessagesResource {
+    public class PaymentTypeMessageResource {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal ReportGenerationMessagesResource() {
+        internal PaymentTypeMessageResource() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace CashFlow.Domain.MessageResource {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("CashFlow.Domain.MessageResource.ReportGenerationMessagesResource", typeof(ReportGenerationMessagesResource).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("CashFlow.Domain.MessageResource.PaymentType.PaymentTypeMessageResource", typeof(PaymentTypeMessageResource).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -57,15 +57,6 @@ namespace CashFlow.Domain.MessageResource {
             }
             set {
                 resourceCulture = value;
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Amount.
-        /// </summary>
-        public static string AMOUNT {
-            get {
-                return ResourceManager.GetString("AMOUNT", resourceCulture);
             }
         }
         
@@ -88,15 +79,6 @@ namespace CashFlow.Domain.MessageResource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Date.
-        /// </summary>
-        public static string DATE {
-            get {
-                return ResourceManager.GetString("DATE", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Debit Card.
         /// </summary>
         public static string DEBIT_CARD {
@@ -106,56 +88,11 @@ namespace CashFlow.Domain.MessageResource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Description.
-        /// </summary>
-        public static string DESCRIPTION {
-            get {
-                return ResourceManager.GetString("DESCRIPTION", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Eletronic Transfer.
         /// </summary>
         public static string ELETRONIC_TRANSFER {
             get {
                 return ResourceManager.GetString("ELETRONIC_TRANSFER", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Expenses for.
-        /// </summary>
-        public static string EXPENSES_FOR {
-            get {
-                return ResourceManager.GetString("EXPENSES_FOR", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Payment Type.
-        /// </summary>
-        public static string PAYMENT_TYPE {
-            get {
-                return ResourceManager.GetString("PAYMENT_TYPE", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Title.
-        /// </summary>
-        public static string TITLE {
-            get {
-                return ResourceManager.GetString("TITLE", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Total spent in {0}.
-        /// </summary>
-        public static string TOTAL_SPENT_IN {
-            get {
-                return ResourceManager.GetString("TOTAL_SPENT_IN", resourceCulture);
             }
         }
     }

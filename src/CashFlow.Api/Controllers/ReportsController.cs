@@ -10,7 +10,7 @@ namespace CashFlow.Api.Controllers
     /// </summary>
     [Route("v1/api/report")]
     [ApiController]
-    public class ReportController : ControllerBase
+    public class ReportsController : ControllerBase
     {
 
         /// <summary>

@@ -1,4 +1,6 @@
-﻿namespace CashFlow.Domain.Responses.Register
+﻿using CashFlow.Domain.Responses.Expenses;
+
+namespace CashFlow.Domain.Responses.Register
 {
     public class ExpensesResponseList
     {
