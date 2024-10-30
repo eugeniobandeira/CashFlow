@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
 using CashFlow.Domain.Entities;
 using CashFlow.Domain.Interface;
-using CashFlow.Domain.Interface.Security;
+using CashFlow.Domain.Interface.Security.Cryptography;
+using CashFlow.Domain.Interface.Security.Tokens;
 using CashFlow.Domain.Interface.User;
 using CashFlow.Domain.Requests.Users;
 using CashFlow.Domain.Responses.Users;
@@ -18,21 +19,24 @@ namespace CashFlow.Application.UseCases.Users.Register
         private readonly IUserReadOnlyRepository _userReadOnlyRepository;
         private readonly IUserWriteOnlyRepository _userWriteOnlyRepository;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IJwtTokenGenerator _tokenGenerator;
 
         public RegisterUserUseCase(
             IMapper mapper, 
             IPasswordEncripter passwordEncripter,
             IUserReadOnlyRepository userReadOnlyRepository,
             IUnitOfWork unitOfWork,
-            IUserWriteOnlyRepository userWriteOnlyRepository)
+            IUserWriteOnlyRepository userWriteOnlyRepository,
+            IJwtTokenGenerator jwtTokenGenerator)
         {
             _mapper = mapper;
             _passwordEncripter = passwordEncripter;
             _userReadOnlyRepository = userReadOnlyRepository;
             _userWriteOnlyRepository = userWriteOnlyRepository;
             _unitOfWork = unitOfWork;
-
+            _tokenGenerator = jwtTokenGenerator;
         }
+
         public async Task<RegisteredUserResponse> Execute(UserRequest req)
         {
             await Validate(req);
@@ -48,7 +52,7 @@ namespace CashFlow.Application.UseCases.Users.Register
             return new RegisteredUserResponse
             {
                 Name = user.Name,
-                Token = ""
+                Token = _tokenGenerator.Generate(user)
             };
         }
 

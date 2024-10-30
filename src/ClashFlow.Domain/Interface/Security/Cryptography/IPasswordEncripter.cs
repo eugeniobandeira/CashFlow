@@ -1,4 +1,4 @@
-﻿namespace CashFlow.Domain.Interface.Security
+﻿namespace CashFlow.Domain.Interface.Security.Cryptography
 {
     public interface IPasswordEncripter
     {
