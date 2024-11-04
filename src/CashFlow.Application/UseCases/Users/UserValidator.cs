@@ -16,6 +16,7 @@ namespace CashFlow.Application.UseCases.Users
                 .NotEmpty()
                 .WithMessage(ErrorMessageResource.EMPTY_EMAIL)
                 .EmailAddress()
+                .When(user => string.IsNullOrWhiteSpace(user.Email) == false, ApplyConditionTo.CurrentValidator)
                 .WithMessage(ErrorMessageResource.INVALID_EMAIL);
 
             RuleFor(user => user.Password)

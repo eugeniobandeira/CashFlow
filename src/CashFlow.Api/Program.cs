@@ -108,7 +108,7 @@ await MigrateDatabase();
 
 app.Run();
 
-#region
+#region Migration
 async Task MigrateDatabase()
 {
     await using var scope = app.Services.CreateAsyncScope();
