@@ -6,6 +6,7 @@ using CashFlow.Application.UseCases.Expenses.Update;
 using CashFlow.Domain.Requests.Expenses;
 using CashFlow.Domain.Responses.Error;
 using CashFlow.Domain.Responses.Register;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CashFlow.Api.Controllers
@@ -15,6 +16,7 @@ namespace CashFlow.Api.Controllers
     /// </summary>
     [Route("v1/api/expenses")]
     [ApiController]
+    [Authorize]
     public class ExpensesController : ControllerBase
     {
 
@@ -29,7 +31,7 @@ namespace CashFlow.Api.Controllers
         [HttpPost]
         [ProducesResponseType(typeof(RegisteredExpenseResponse), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> Register(
+        public async Task<IActionResult> RegisterAsync(
             [FromServices] IRegisterExpenseUseCase useCase, 
             [FromBody] ExpenseRequest req)
         {
