@@ -138,6 +138,9 @@
   <data name="INVALID_EMAIL" xml:space="preserve">
     <value>Email inválido</value>
   </data>
+  <data name="INVALID_EMAIL_OR_PASSWORD" xml:space="preserve">
+    <value>Email e/ou senha inválido</value>
+  </data>
   <data name="INVALID_PASSWORD" xml:space="preserve">
     <value>A senha deve ter no mínimo 8 caracteres, contendo pelo menos uma letra maiúscula, uma minúscula, um número e um caractere especial (por exemplo: @, #, !, $, %)</value>
   </data>
