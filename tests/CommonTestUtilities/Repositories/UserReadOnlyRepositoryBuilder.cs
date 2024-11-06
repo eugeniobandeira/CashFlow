@@ -12,6 +12,11 @@ namespace CommonTestUtilities.Repositories
             _repository = new Mock<IUserReadOnlyRepository>();
         }
 
+        public void ExistUserWithEmail(string email)
+        {
+            _repository.Setup(userReadOnly => userReadOnly.ExistUserWithEmail(email)).ReturnsAsync(true);
+        }
+
         public IUserReadOnlyRepository Build() => _repository.Object;
     }
 }
