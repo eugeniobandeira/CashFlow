@@ -116,3 +116,4 @@ async Task MigrateDatabase()
     await DataBaseMigration.MigrateDatabase(scope.ServiceProvider);
 }
 #endregion
+public partial class Program { }
