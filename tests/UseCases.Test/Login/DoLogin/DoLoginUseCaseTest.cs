@@ -1,5 +1,9 @@
 ﻿using CashFlow.Application.UseCases.Login;
 using CashFlow.Domain.Entities;
+using CashFlow.Domain.Requests.Login;
+using CashFlow.Domain.Responses.Users;
+using CashFlow.Exception;
+using CashFlow.Exception.ExceptionBase;
 using CommonTestUtilities.Cryptography;
 using CommonTestUtilities.Entities;
 using CommonTestUtilities.Repositories;
@@ -17,9 +21,10 @@ namespace UseCases.Test.Login.DoLogin
             //Arrange
             var user = UserBuilder.Build();
             var req = InsertLoginRequestBuilder.Build();
-            var useCase = CreateUseCase(user);
+            req.Email = user.Email;
 
             //Act
+            var useCase = CreateUseCase(user, req.Password);
             var result = await useCase.Execute(req);
 
             //Assert
@@ -28,10 +33,46 @@ namespace UseCases.Test.Login.DoLogin
             result.Token.Should().NotBeNullOrWhiteSpace();
         }
 
-        #region Create UseCase
-        private static DoLoginUseCase CreateUseCase(UserEntity userEntity)
+        [Fact]
+        public async Task User_Not_Found_Error()
         {
-            var passwordEncripter = PasswordEncripterBuilder.Build();
+            //Arrange
+            var user = UserBuilder.Build();
+            var req = InsertLoginRequestBuilder.Build();
+
+            //Act
+            var useCase = CreateUseCase(user, req.Password);
+            var act = async () => await useCase.Execute(req);
+
+            //Assert
+            var result = await act.Should().ThrowAsync<InvalidLoginException>();
+            result.Where(ex => ex.GetErrors().Count == 1 &&
+            ex.GetErrors().Contains(ErrorMessageResource.INVALID_EMAIL_OR_PASSWORD));
+        }
+
+        [Fact]
+        public async Task Password_Does_Not_Match_Error()
+        {
+            //Arrange
+            var user = UserBuilder.Build();
+            var req = InsertLoginRequestBuilder.Build();
+            req.Email = user.Email;
+
+            //Act
+            var useCase = CreateUseCase(user);
+            var act = async () => await useCase.Execute(req);
+
+            //Assert
+            var result = await act.Should().ThrowAsync<InvalidLoginException>();
+            result.Where(ex => ex.GetErrors().Count == 1 &&
+            ex.GetErrors().Contains(ErrorMessageResource.INVALID_EMAIL_OR_PASSWORD));
+
+        }
+
+        #region Create UseCase
+        private static DoLoginUseCase CreateUseCase(UserEntity userEntity, string? password = null)
+        {
+            var passwordEncripter = new PasswordEncrypterBuilder().Verify(password).Build();
             var tokenGenerator = JwtTokenGeneratorBuilder.Build();
             var readOnlyRepository = new UserReadOnlyRepositoryBuilder().GetUserByEmail(userEntity).Build();
 
