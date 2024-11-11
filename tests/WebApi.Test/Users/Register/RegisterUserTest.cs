@@ -1,9 +1,12 @@
-﻿using CommonTestUtilities.Requests;
+﻿using CashFlow.Exception;
+using CommonTestUtilities.Requests;
 using FluentAssertions;
-using Microsoft.AspNetCore.Mvc.Testing;
+using System.Globalization;
 using System.Net;
+using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text.Json;
+using WebApi.Test.InlineData;
 
 namespace WebApi.Test.Users.Register
 {
@@ -44,6 +47,38 @@ namespace WebApi.Test.Users.Register
                 .GetString()
                 .Should()
                 .NotBeNullOrEmpty();
+        }
+
+        [Theory]
+        [ClassData(typeof(CultureInlineDataTest))]
+        public async Task Empty_Name_Error(string cultureInfo)
+        {
+            //Arrange
+            var req = InsertUserRequestBuilder.Build();
+            req.Name = string.Empty;
+
+            //Act
+            _httpClient.DefaultRequestHeaders.AcceptLanguage.Add(new StringWithQualityHeaderValue(cultureInfo));
+            var result = await _httpClient.PostAsJsonAsync(METHOD, req);
+
+            //Assert
+            result.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+
+            var body = await result.Content.ReadAsStreamAsync();
+            var response = await JsonDocument.ParseAsync(body);
+
+            var errors = response.RootElement.GetProperty("errorMessage").EnumerateArray();
+
+            var expectedMessage = ErrorMessageResource
+                .ResourceManager
+                .GetString("EMPTY_NAME", new CultureInfo(cultureInfo));
+
+            errors
+                .Should()
+                .HaveCount(1)
+                .And
+                .Contain(error => error.GetString()!
+                .Equals(expectedMessage));
         }
     }
 }
