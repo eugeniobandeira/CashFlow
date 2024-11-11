@@ -10,13 +10,13 @@ using WebApi.Test.InlineData;
 
 namespace WebApi.Test.Users.Register
 {
-    public class RegisterUserTest : IClassFixture<CustomWebApplicationFactory>
+    public class RegisterUserTest : IClassFixture<IntegrationTestWebApplicationFactory>
     {
         private const string METHOD = "v1/api/user";
 
         private readonly HttpClient _httpClient;
 
-        public RegisterUserTest(CustomWebApplicationFactory webApplicationFactory)
+        public RegisterUserTest(IntegrationTestWebApplicationFactory webApplicationFactory)
         {
             _httpClient = webApplicationFactory.CreateClient();
         }
