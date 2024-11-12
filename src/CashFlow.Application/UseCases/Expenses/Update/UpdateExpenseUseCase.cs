@@ -32,7 +32,7 @@ namespace CashFlow.Application.UseCases.Expenses.Update
         {
             Validate(req);
 
-            var loggedUser = _loggedUser.GetAsync();
+            var loggedUser = await _loggedUser.GetAsync();
 
             var expenseEntity = await _repository.GetByIdAsync(loggedUser, id) ?? 
                 throw new NotFoundException(ErrorMessageResource.EXPENSE_NOT_FOUND);

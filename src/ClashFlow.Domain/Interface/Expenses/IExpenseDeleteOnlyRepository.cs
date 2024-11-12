@@ -7,6 +7,6 @@
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task<bool> DeleteAsync(long id);
+        Task DeleteAsync(long id);
     }
 }

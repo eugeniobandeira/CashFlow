@@ -22,16 +22,20 @@ namespace CashFlow.Infrastructure.DataAccess.Repositories.Expense
             await _dbContext.Expenses.AddAsync(expenseEntity);
         }
 
-        public async Task<List<ExpenseEntity>> GetAllAsync()
+        public async Task<List<ExpenseEntity>> GetAllAsync(UserEntity userEntity)
         {
-            return await _dbContext.Expenses.AsNoTracking().ToListAsync();
+            return await _dbContext
+                .Expenses
+                .AsNoTracking()
+                .Where(exp => exp.UserId == userEntity.Id)
+                .ToListAsync();
         }
 
-        async Task<ExpenseEntity?> IExpensesReadOnlyRepository.GetByIdAsync(long id)
+        async Task<ExpenseEntity?> IExpensesReadOnlyRepository.GetByIdAsync(UserEntity userEntity, long id)
         {
             return await _dbContext.Expenses
                 .AsNoTracking()
-                .FirstOrDefaultAsync(exp => exp.Id == id);
+                .FirstOrDefaultAsync(exp => exp.Id == id && exp.UserId == userEntity.Id);
         }
 
         async Task<ExpenseEntity?> IExpenseUpdateOnlyRepository.GetByIdAsync(UserEntity userEntity, long id)
@@ -41,21 +45,20 @@ namespace CashFlow.Infrastructure.DataAccess.Repositories.Expense
                 .FirstOrDefaultAsync(exp => exp.Id == id && exp.UserId == userEntity.Id);
         }
 
-        public async Task<bool> DeleteAsync(long id)
+        public async Task DeleteAsync(long id)
         {
-            var result = await _dbContext.Expenses.FirstOrDefaultAsync(exp => exp.Id == id);
+            var result = await _dbContext.Expenses.FindAsync(id);
 
-            if (result is null)
-                return false;
-
-            _dbContext.Expenses.Remove(result);
-
-            return true;
+            _dbContext
+                .Expenses
+                .Remove(result!);
         }
 
         public void Update(ExpenseEntity entity)
         {
-            _dbContext.Expenses.Update(entity);
+            _dbContext
+                .Expenses
+                .Update(entity);
         }
 
         public async Task<List<ExpenseEntity>> FilterByMonth(DateOnly date)
