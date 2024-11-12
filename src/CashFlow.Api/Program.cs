@@ -9,6 +9,8 @@ using System.Reflection;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using CashFlow.Infrastructure.Extensions;
+using CashFlow.Domain.Interface.Security.Tokens;
+using CashFlow.Api.Token;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -82,9 +84,11 @@ builder.Services.AddAuthentication(config =>
 });
 #endregion 
 
-#region Dependency Injection
+#region Dependency Injection and Services
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplication();
+builder.Services.AddScoped<ITokenProvider, HttpContextTokenValue>();
+builder.Services.AddHttpContextAccessor();
 #endregion
 
 var app = builder.Build();
@@ -118,4 +122,8 @@ async Task MigrateDatabase()
     await DataBaseMigration.MigrateDatabase(scope.ServiceProvider);
 }
 #endregion
+
+/// <summary>
+/// This class is necessary to create integration tests purpose only
+/// </summary>
 public partial class Program { }

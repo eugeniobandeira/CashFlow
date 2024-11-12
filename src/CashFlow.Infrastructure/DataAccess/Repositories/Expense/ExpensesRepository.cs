@@ -10,50 +10,52 @@ namespace CashFlow.Infrastructure.DataAccess.Repositories.Expense
         IExpenseDeleteOnlyRepository,
         IExpenseUpdateOnlyRepository
     {
-        private readonly CashFlowDbContext _context;
+        private readonly CashFlowDbContext _dbContext;
 
         public ExpensesRepository(CashFlowDbContext cashFlowDbContext)
         {
-            _context = cashFlowDbContext;
+            _dbContext = cashFlowDbContext;
         }
 
         public async Task AddAsync(ExpenseEntity expenseEntity)
         {
-            await _context.Expenses.AddAsync(expenseEntity);
+            await _dbContext.Expenses.AddAsync(expenseEntity);
         }
 
         public async Task<List<ExpenseEntity>> GetAllAsync()
         {
-            return await _context.Expenses.AsNoTracking().ToListAsync();
+            return await _dbContext.Expenses.AsNoTracking().ToListAsync();
         }
 
         async Task<ExpenseEntity?> IExpensesReadOnlyRepository.GetByIdAsync(long id)
         {
-            return await _context.Expenses
+            return await _dbContext.Expenses
                 .AsNoTracking()
                 .FirstOrDefaultAsync(exp => exp.Id == id);
         }
 
-        async Task<ExpenseEntity?> IExpenseUpdateOnlyRepository.GetByIdAsync(long id)
+        async Task<ExpenseEntity?> IExpenseUpdateOnlyRepository.GetByIdAsync(UserEntity userEntity, long id)
         {
-            return await _context.Expenses.FirstOrDefaultAsync(exp => exp.Id == id);
+            return await _dbContext
+                .Expenses
+                .FirstOrDefaultAsync(exp => exp.Id == id && exp.UserId == userEntity.Id);
         }
 
         public async Task<bool> DeleteAsync(long id)
         {
-            var result = await _context.Expenses.FirstOrDefaultAsync(exp => exp.Id == id);
+            var result = await _dbContext.Expenses.FirstOrDefaultAsync(exp => exp.Id == id);
 
             if (result is null)
                 return false;
 
-            _context.Expenses.Remove(result);
+            _dbContext.Expenses.Remove(result);
 
             return true;
         }
 
         public void Update(ExpenseEntity entity)
         {
-            _context.Expenses.Update(entity);
+            _dbContext.Expenses.Update(entity);
         }
 
         public async Task<List<ExpenseEntity>> FilterByMonth(DateOnly date)
@@ -75,7 +77,7 @@ namespace CashFlow.Infrastructure.DataAccess.Repositories.Expense
                 minute: 59,
                 second: 59);
 
-            return await _context.Expenses
+            return await _dbContext.Expenses
                 .AsNoTracking()
                 .Where(exp => exp.Date >= startDate && exp.Date <= endDate)
                 .OrderBy(exp => exp.Date)
