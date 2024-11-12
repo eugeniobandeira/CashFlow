@@ -1,5 +1,6 @@
 ﻿using CashFlow.Domain.Extensions;
 using CashFlow.Domain.Interface.Expenses;
+using CashFlow.Domain.Interface.Service.LoggedUser;
 using CashFlow.Domain.MessageResource.Report;
 using ClosedXML.Excel;
 
@@ -8,26 +9,30 @@ namespace CashFlow.Application.UseCases.Expenses.Reports.Excel
     internal class GenerateExpensesReportExcelUseCase : IGenerateExpensesReportExcelUseCase
     {
         private readonly IExpensesReadOnlyRepository _repository;
+        private readonly ILoggedUser _loggedUser;
         private const string CURRENCY_SYMBOL = "€";
 
-        public GenerateExpensesReportExcelUseCase(IExpensesReadOnlyRepository expensesReadOnlyRepository)
+        public GenerateExpensesReportExcelUseCase(IExpensesReadOnlyRepository expensesReadOnlyRepository, ILoggedUser loggedUser)
         {
             _repository = expensesReadOnlyRepository;
+            _loggedUser = loggedUser;
         }
         public async Task<byte[]> Execute(DateOnly month)
         {
-            var expenses = await _repository.FilterByMonth(month);
+            var loggedUser = await _loggedUser.GetAsync();
+
+            var expenses = await _repository.FilterByMonth(loggedUser, month);
 
             if (expenses.Count == 0)
                 return [];
 
             using var workbook = new XLWorkbook();
 
-            workbook.Author = "Eugênio Bandeira";
+            workbook.Author = loggedUser.Name;
             workbook.Style.Font.FontSize = 12;
             workbook.Style.Font.FontName = "Times New Roman";
 
-            var worksheet = workbook.Worksheets.Add($"report {month: Y}");
+            var worksheet = workbook.Worksheets.Add($"report {month.ToString("Y")}");
 
             InsertHeader(worksheet);
 

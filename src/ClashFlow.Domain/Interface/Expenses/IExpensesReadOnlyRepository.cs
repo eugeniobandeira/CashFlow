@@ -6,6 +6,6 @@ namespace CashFlow.Domain.Interface.Expenses
     {
         Task<List<ExpenseEntity>> GetAllAsync(UserEntity userEntity);
         Task<ExpenseEntity?> GetByIdAsync(UserEntity userEntity, long id);
-        Task<List<ExpenseEntity>> FilterByMonth(DateOnly month);
+        Task<List<ExpenseEntity>> FilterByMonth(UserEntity userEntity, DateOnly month);
     }
 }

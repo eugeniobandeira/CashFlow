@@ -61,7 +61,7 @@ namespace CashFlow.Infrastructure.DataAccess.Repositories.Expense
                 .Update(entity);
         }
 
-        public async Task<List<ExpenseEntity>> FilterByMonth(DateOnly date)
+        public async Task<List<ExpenseEntity>> FilterByMonth(UserEntity userEntity, DateOnly date)
         {
             var startDate = new DateTime(
                 year: date.Year,
@@ -82,7 +82,7 @@ namespace CashFlow.Infrastructure.DataAccess.Repositories.Expense
 
             return await _dbContext.Expenses
                 .AsNoTracking()
-                .Where(exp => exp.Date >= startDate && exp.Date <= endDate)
+                .Where(exp => exp.UserId == userEntity.Id && exp.Date >= startDate && exp.Date <= endDate)
                 .OrderBy(exp => exp.Date)
                 .ThenBy(exp => exp.Title)
                 .ToListAsync();

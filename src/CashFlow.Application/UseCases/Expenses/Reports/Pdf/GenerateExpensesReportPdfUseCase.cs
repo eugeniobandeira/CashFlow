@@ -2,7 +2,7 @@
 using CashFlow.Application.UseCases.Expenses.Reports.Pdf.Fonts;
 using CashFlow.Domain.Extensions;
 using CashFlow.Domain.Interface.Expenses;
-using CashFlow.Domain.MessageResource;
+using CashFlow.Domain.Interface.Service.LoggedUser;
 using CashFlow.Domain.MessageResource.Report;
 using MigraDoc.DocumentObjectModel;
 using MigraDoc.DocumentObjectModel.Tables;
@@ -17,22 +17,26 @@ namespace CashFlow.Application.UseCases.Expenses.Reports.Pdf
         private readonly IExpensesReadOnlyRepository _repository;
         private const string CURRENCY_SYMBOL = "€";
         private const int HIGHT_ROW_EXPENSE_TABLE = 25;
+        private readonly ILoggedUser _loggedUser;
 
-        public GenerateExpensesReportPdfUseCase(IExpensesReadOnlyRepository expensesReadOnlyRepository)
+        public GenerateExpensesReportPdfUseCase(IExpensesReadOnlyRepository expensesReadOnlyRepository, ILoggedUser loggedUser)
         {
             _repository = expensesReadOnlyRepository;
             GlobalFontSettings.FontResolver = new ExpensesReportFontsResolver();
+            _loggedUser = loggedUser;
         }
         public async Task<byte[]> Execute(DateOnly month)
         {
-            var expenses = await _repository.FilterByMonth(month);
+            var loggedUser = await _loggedUser.GetAsync();
+
+            var expenses = await _repository.FilterByMonth(loggedUser, month);
             if (expenses.Count == 0)
                 return [];
 
-            var document = CreateDocument(month);
+            var document = CreateDocument(loggedUser.Name, month);
             var page = CreatePage(document);
 
-            CreateHeaderWithProfileAndName(page);
+            CreateHeaderWithProfileAndName(loggedUser.Name, page);
 
             var totalSpent = expenses.Sum(value => value.Amount);
             CreateTotalSpentSection(page, month, totalSpent);
@@ -82,7 +86,6 @@ namespace CashFlow.Application.UseCases.Expenses.Reports.Pdf
                     row.Cells[3].MergeDown = 1;
                 }
                     
-
                 AddWhiteSpace(table);
             }
 
@@ -90,12 +93,12 @@ namespace CashFlow.Application.UseCases.Expenses.Reports.Pdf
         }
 
         #region Private methods
-        private static Document CreateDocument(DateOnly month)
+        private static Document CreateDocument(string author, DateOnly month)
         {
             Document document = new();
 
             document.Info.Title = $"{ReportGenerationMessagesResource.EXPENSES_FOR} {month: Y}";
-            document.Info.Author = "Eugênio Bandeira";
+            document.Info.Author = author;
 
             var styles = document.Styles["Normal"];
             styles!.Font.Name = FontHelper.RALEWAY_REGULAR;
@@ -131,7 +134,7 @@ namespace CashFlow.Application.UseCases.Expenses.Reports.Pdf
             return file.ToArray();
         }
 
-        private static void CreateHeaderWithProfileAndName(Section page)
+        private static void CreateHeaderWithProfileAndName(string name, Section page)
         {
             var table = page.AddTable();
             table.AddColumn();
@@ -145,7 +148,7 @@ namespace CashFlow.Application.UseCases.Expenses.Reports.Pdf
 
             row.Cells[0].AddImage(pathFile);
 
-            row.Cells[1].AddParagraph("Olá, Eugênio Bandeira");
+            row.Cells[1].AddParagraph($"Olá, {name}");
             row.Cells[1].Format.Font = new Font
             {
                 Name = FontHelper.RALEWAY_BLACK,
@@ -170,7 +173,7 @@ namespace CashFlow.Application.UseCases.Expenses.Reports.Pdf
 
             paragraph.AddLineBreak();
                      
-            paragraph.AddFormattedText($"{totalExpenses} {CURRENCY_SYMBOL}", new Font
+            paragraph.AddFormattedText($"{totalExpenses:f2} {CURRENCY_SYMBOL}", new Font
             {
                 Name = FontHelper.WORKSANS_BLACK,
                 Size = 50
@@ -231,7 +234,7 @@ namespace CashFlow.Application.UseCases.Expenses.Reports.Pdf
 
         private static void AddAmountForExpense(Cell cell, decimal amount)
         {
-            cell.AddParagraph($"-{amount} {CURRENCY_SYMBOL}");
+            cell.AddParagraph($"-{amount:f2} {CURRENCY_SYMBOL}");
             cell.Format.Font = new Font
             {
                 Name = FontHelper.WORKSANS_REGULAR,
