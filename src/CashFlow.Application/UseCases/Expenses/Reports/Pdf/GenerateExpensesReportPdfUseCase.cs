@@ -22,8 +22,9 @@ namespace CashFlow.Application.UseCases.Expenses.Reports.Pdf
         public GenerateExpensesReportPdfUseCase(IExpensesReadOnlyRepository expensesReadOnlyRepository, ILoggedUser loggedUser)
         {
             _repository = expensesReadOnlyRepository;
-            GlobalFontSettings.FontResolver = new ExpensesReportFontsResolver();
             _loggedUser = loggedUser;
+
+            GlobalFontSettings.FontResolver = new ExpensesReportFontsResolver();
         }
         public async Task<byte[]> Execute(DateOnly month)
         {

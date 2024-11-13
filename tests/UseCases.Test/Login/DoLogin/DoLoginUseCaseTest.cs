@@ -1,12 +1,10 @@
 ﻿using CashFlow.Application.UseCases.Login;
 using CashFlow.Domain.Entities;
-using CashFlow.Domain.Requests.Login;
-using CashFlow.Domain.Responses.Users;
 using CashFlow.Exception;
 using CashFlow.Exception.ExceptionBase;
 using CommonTestUtilities.Cryptography;
 using CommonTestUtilities.Entities;
-using CommonTestUtilities.Repositories;
+using CommonTestUtilities.Repositories.User;
 using CommonTestUtilities.Requests;
 using CommonTestUtilities.Token;
 using FluentAssertions;

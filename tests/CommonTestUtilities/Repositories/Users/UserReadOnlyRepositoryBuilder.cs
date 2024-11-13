@@ -2,7 +2,7 @@
 using CashFlow.Domain.Interface.User;
 using Moq;
 
-namespace CommonTestUtilities.Repositories
+namespace CommonTestUtilities.Repositories.User
 {
     public class UserReadOnlyRepositoryBuilder
     {
