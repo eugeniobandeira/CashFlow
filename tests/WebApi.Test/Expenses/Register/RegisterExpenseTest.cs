@@ -10,16 +10,13 @@ using WebApi.Test.InlineData;
 
 namespace WebApi.Test.Expenses.Register
 {
-    public class RegisterExpenseTest : IClassFixture<IntegrationTestWebApplicationFactory>
+    public class RegisterExpenseTest : CashflowClassFixture
     {
         private const string METHOD = "v1/api/expenses";
-
-        private readonly HttpClient _httpClient;
         private readonly string _token;
 
-        public RegisterExpenseTest(IntegrationTestWebApplicationFactory webAppFactory)
+        public RegisterExpenseTest(IntegrationTestWebApplicationFactory webAppFactory) : base(webAppFactory)
         {
-            _httpClient = webAppFactory.CreateClient();
             _token = webAppFactory.GetToken();
         }
 
@@ -28,12 +25,12 @@ namespace WebApi.Test.Expenses.Register
         {
             //Arrange
             var req = InsertExpenseRequestBuilder.Build();
-            _httpClient
-                .DefaultRequestHeaders
-                .Authorization = new AuthenticationHeaderValue("Bearer", _token);
 
             //Act
-            var response = await _httpClient.PostAsJsonAsync(METHOD, req);
+            var response = await DoPostAsync(
+                reqUri: METHOD, 
+                req: req,
+                token: _token);
 
             //Assert
             response.StatusCode.Should().Be(HttpStatusCode.Created);
@@ -62,23 +59,18 @@ namespace WebApi.Test.Expenses.Register
 
         [Theory]
         [ClassData(typeof(CultureInlineDataTest))]
-        public async Task Empty_Title_Error(string cultureInfo)
+        public async Task Empty_Title_Error(string culture)
         {
             //Arrange
             var req = InsertExpenseRequestBuilder.Build();
             req.Title = string.Empty;
 
-            _httpClient
-                .DefaultRequestHeaders
-                .Authorization = new AuthenticationHeaderValue("Bearer", _token);
-
-            _httpClient
-                .DefaultRequestHeaders
-                .AcceptLanguage
-                .Add(new StringWithQualityHeaderValue(cultureInfo));
-
             //Act
-            var response = await _httpClient.PostAsJsonAsync(METHOD, req);
+            var response = await DoPostAsync(
+                reqUri: METHOD,
+                req: req,
+                token: _token,
+                culture: culture);
 
             //Assert
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
@@ -93,7 +85,7 @@ namespace WebApi.Test.Expenses.Register
 
             var expectedMessage = ErrorMessageResource
                 .ResourceManager
-                .GetString("TITLE_REQUIRED", new CultureInfo(cultureInfo));
+                .GetString("TITLE_REQUIRED", new CultureInfo(culture));
 
             errors
                 .Should()

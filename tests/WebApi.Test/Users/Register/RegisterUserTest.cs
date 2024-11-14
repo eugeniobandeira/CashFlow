@@ -3,22 +3,18 @@ using CommonTestUtilities.Requests;
 using FluentAssertions;
 using System.Globalization;
 using System.Net;
-using System.Net.Http.Headers;
-using System.Net.Http.Json;
 using System.Text.Json;
 using WebApi.Test.InlineData;
 
 namespace WebApi.Test.Users.Register
 {
-    public class RegisterUserTest : IClassFixture<IntegrationTestWebApplicationFactory>
+    public class RegisterUserTest : CashflowClassFixture
     {
         private const string METHOD = "v1/api/user";
 
-        private readonly HttpClient _httpClient;
-
-        public RegisterUserTest(IntegrationTestWebApplicationFactory webApplicationFactory)
+        public RegisterUserTest(IntegrationTestWebApplicationFactory webAppFactory) 
+            : base(webAppFactory)
         {
-            _httpClient = webApplicationFactory.CreateClient();
         }
 
         [Fact]
@@ -28,7 +24,7 @@ namespace WebApi.Test.Users.Register
             var req = InsertUserRequestBuilder.Build();
 
             //Act
-            var result = await _httpClient.PostAsJsonAsync(METHOD, req);
+            var result = await DoPostAsync(METHOD, req);
 
             //Assert
             result.StatusCode.Should().Be(HttpStatusCode.Created);
@@ -51,15 +47,17 @@ namespace WebApi.Test.Users.Register
 
         [Theory]
         [ClassData(typeof(CultureInlineDataTest))]
-        public async Task Empty_Name_Error(string cultureInfo)
+        public async Task Empty_Name_Error(string culture)
         {
             //Arrange
             var req = InsertUserRequestBuilder.Build();
             req.Name = string.Empty;
 
             //Act
-            _httpClient.DefaultRequestHeaders.AcceptLanguage.Add(new StringWithQualityHeaderValue(cultureInfo));
-            var result = await _httpClient.PostAsJsonAsync(METHOD, req);
+            var result = await DoPostAsync(
+                reqUri: METHOD, 
+                req: req, 
+                culture: culture);
 
             //Assert
             result.StatusCode.Should().Be(HttpStatusCode.BadRequest);
@@ -71,7 +69,7 @@ namespace WebApi.Test.Users.Register
 
             var expectedMessage = ErrorMessageResource
                 .ResourceManager
-                .GetString("EMPTY_NAME", new CultureInfo(cultureInfo));
+                .GetString("EMPTY_NAME", new CultureInfo(culture));
 
             errors
                 .Should()
