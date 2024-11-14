@@ -26,21 +26,10 @@ namespace UseCases.Test.Expenses.Register
             var result = await useCase.Execute(req);
 
             //Assert
-            result
-                .Should()
-                .NotBeNull();
-            result
-                .Title
-                .Should()
-                .Be(req.Title);
-            result
-                .Description
-                .Should()
-                .Be(req.Description);
-            result
-                .Amount
-                .Should()
-                .Be(req.Amount);
+            result.Should().NotBeNull();
+            result.Title.Should().Be(req.Title);
+            result.Description.Should().Be(req.Description);
+            result.Amount.Should().Be(req.Amount);
         }
 
         [Fact]
@@ -56,18 +45,13 @@ namespace UseCases.Test.Expenses.Register
             var act = async () => await useCase.Execute(req);
 
             //Assert
-            var result = await act
-                .Should()
-                .ThrowAsync<ErrorOnValidationException>();
-            result
-                .Where(ex => ex.GetErrors()
-                .Count() == 1 
-                && ex.GetErrors()
+            var result = await act.Should().ThrowAsync<ErrorOnValidationException>();
+            result.Where(ex => ex.GetErrors().Count() == 1 && ex.GetErrors()
                 .Contains(ErrorMessageResource.TITLE_REQUIRED));
         }
 
         #region UseCase Builder
-        private RegisterExpenseUseCase CreateUseCase(UserEntity userEntity)
+        private static RegisterExpenseUseCase CreateUseCase(UserEntity userEntity)
         {
             var repository = ExpensesWriteOnlyRepositoryBuilder.Build();
             var unitOfWork = UnitOfWorkBuilder.Build();
