@@ -12,7 +12,7 @@ namespace CashFlow.Api.Controllers
     /// </summary>
     [Route("v1/api/report")]
     [ApiController]
-    //[Authorize(Roles = RolesHelper.ADMIN)]
+    [Authorize(Roles = RolesHelper.ADMIN)]
     public class ReportsController : ControllerBase
     {
 
