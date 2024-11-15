@@ -9,7 +9,7 @@ using CashFlow.Domain.Interface.Service.LoggedUser;
 
 namespace CashFlow.Application.UseCases.Expenses.Update
 {
-    internal class UpdateExpenseUseCase : IUpdateExpenseUseCase
+    public class UpdateExpenseUseCase : IUpdateExpenseUseCase
     {
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;

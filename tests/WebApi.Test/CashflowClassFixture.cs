@@ -46,6 +46,18 @@ namespace WebApi.Test
             return await _httpClient.DeleteAsync(reqUri);
         }
 
+        protected async Task<HttpResponseMessage> DoPutAsync(
+            string reqUri, 
+            object req, 
+            string token,
+            string culture = "en")
+        {
+            AuthorizeRequest(token);
+            ChangeRequestCulture(culture);
+
+            return await _httpClient.PutAsJsonAsync(reqUri, req);
+        }
+
         #region Helpers
         private void AuthorizeRequest(string token)
         {

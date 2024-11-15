@@ -28,7 +28,7 @@ namespace CashFlow.Application.UseCases.Expenses.Delete
         {
             var loggedUser = await _loggedUser.GetAsync();
 
-            var expense = await _readOnlyRepository.GetByIdAsync(loggedUser, id) ?? 
+            _ = await _readOnlyRepository.GetByIdAsync(loggedUser, id) ??
                 throw new NotFoundException(ErrorMessageResource.EXPENSE_NOT_FOUND);
 
             await _repository.DeleteAsync(id);

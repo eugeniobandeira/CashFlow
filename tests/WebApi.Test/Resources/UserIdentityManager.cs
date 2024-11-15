@@ -4,7 +4,7 @@ namespace WebApi.Test.Resources
 {
     public class UserIdentityManager
     {
-        private UserEntity? _user;
+        private readonly UserEntity? _user;
         private readonly string _password;
         private readonly string _token;
 
