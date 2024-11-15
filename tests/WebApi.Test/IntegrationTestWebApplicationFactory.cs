@@ -65,8 +65,8 @@ namespace WebApi.Test
         {
             var user = UserBuilder.Build();
             user.Id = 1;
-            var password = user.Password;
 
+            var password = user.Password;
             user.Password = passwordEncripter.Encrypt(user.Password);
 
             dbContext.Users.Add(user);
@@ -98,7 +98,7 @@ namespace WebApi.Test
             return user;
         }
 
-        private ExpenseEntity AddExpenses(CashFlowDbContext dbContext, UserEntity user, long expenseId)
+        private static ExpenseEntity AddExpenses(CashFlowDbContext dbContext, UserEntity user, long expenseId)
         {
             var expense = ExpenseBuilder.Build(user);
             expense.Id = expenseId;

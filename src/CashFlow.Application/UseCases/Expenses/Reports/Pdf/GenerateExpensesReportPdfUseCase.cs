@@ -12,7 +12,7 @@ using System.Reflection;
 
 namespace CashFlow.Application.UseCases.Expenses.Reports.Pdf
 {
-    internal class GenerateExpensesReportPdfUseCase : IGenerateExpensesReportPdfUseCase
+    public class GenerateExpensesReportPdfUseCase : IGenerateExpensesReportPdfUseCase
     {
         private readonly IExpensesReadOnlyRepository _repository;
         private const string CURRENCY_SYMBOL = "€";
