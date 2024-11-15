@@ -12,7 +12,7 @@ namespace WebApi.Test.Expenses.GetAll
         public GetAllExpenseTest(IntegrationTestWebApplicationFactory webAppFactory)
             :base(webAppFactory)
         {
-            _token = webAppFactory.GetToken();
+            _token = webAppFactory.Regular_User_Manager.GetToken();
         }
 
         [Fact]

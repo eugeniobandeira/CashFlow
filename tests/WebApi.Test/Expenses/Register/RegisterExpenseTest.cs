@@ -16,7 +16,7 @@ namespace WebApi.Test.Expenses.Register
         public RegisterExpenseTest(IntegrationTestWebApplicationFactory webAppFactory) 
             : base(webAppFactory)
         {
-            _token = webAppFactory.GetToken();
+            _token = webAppFactory.Regular_User_Manager.GetToken();
         }
 
         [Fact]

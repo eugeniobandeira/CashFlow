@@ -3,19 +3,21 @@ using CashFlow.Domain.Interface.Security.Cryptography;
 using CashFlow.Domain.Interface.Security.Tokens;
 using CashFlow.Infrastructure.DataAccess;
 using CommonTestUtilities.Entities;
+using DocumentFormat.OpenXml.Spreadsheet;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json.Linq;
+using WebApi.Test.Resources;
 
 namespace WebApi.Test
 {
     public class IntegrationTestWebApplicationFactory : WebApplicationFactory<Program>
     {
-        private ExpenseEntity? _expense;
-        private UserEntity? _user;
-        private string? _password;
-        private string? _token;
+        public ExpenseIdentityManager Expense_Manager { get; private set; } = default!;
+        public UserIdentityManager Regular_User_Manager { get; private set; } = default!;
+        public UserIdentityManager Admin_User_Manager { get; private set; } = default!;
 
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
@@ -33,54 +35,53 @@ namespace WebApi.Test
                     var scope = services.BuildServiceProvider().CreateAsyncScope();
                     var dbContext = scope.ServiceProvider.GetRequiredService<CashFlowDbContext>();
                     var passwordEncripter = scope.ServiceProvider.GetRequiredService<IPasswordEncripter>();
+                    var jwtTokenGenerator = scope.ServiceProvider.GetRequiredService<IJwtTokenGenerator>();
 
-                    StartDatabase(dbContext, passwordEncripter);
+                    StartDatabase(dbContext, passwordEncripter, jwtTokenGenerator);
 
-                    var tokenGenerator = scope.ServiceProvider.GetRequiredService<IJwtTokenGenerator>();
-                    _token = tokenGenerator.Generate(_user!);
                 });
 
         }
 
-        private void StartDatabase(CashFlowDbContext dbContext, IPasswordEncripter passwordEncripter)
+        private void StartDatabase(
+            CashFlowDbContext dbContext, 
+            IPasswordEncripter passwordEncripter,
+            IJwtTokenGenerator jwtTokenGenerator)
         {
-            AddUsers(dbContext, passwordEncripter);
-            AddExpenses(dbContext, _user!);
+            var user = AddRegularUser(dbContext, passwordEncripter, jwtTokenGenerator);
+            AddExpenses(dbContext, user);
 
             dbContext.SaveChanges();
         }
 
         #region Helpers
-        public string GetEmail()
-            => _user!.Email;
 
-        public string GetName()
-            => _user!.Name;
-
-        public string GetPassword()
-            => _password!;
-
-        public string GetToken()
-            => _token!;
-
-        public long GetExpenseId()
-            => _expense!.Id;
-
-        private void AddUsers(CashFlowDbContext dbContext, IPasswordEncripter passwordEncripter)
+        private UserEntity AddRegularUser(
+            CashFlowDbContext dbContext, 
+            IPasswordEncripter passwordEncripter, 
+            IJwtTokenGenerator jwtTokenGenerator)
         {
-            _user = UserBuilder.Build();
-            _password = _user.Password;
+            var user = UserBuilder.Build();
+            var password = user.Password;
 
-            _user.Password = passwordEncripter.Encrypt(_user!.Password);
+            user.Password = passwordEncripter.Encrypt(user.Password);
 
-            dbContext.Users.Add(_user);
+            dbContext.Users.Add(user);
+
+            var token = jwtTokenGenerator.Generate(user);
+
+            Regular_User_Manager = new UserIdentityManager(user, password, token);
+
+            return user;
         }
 
         private void AddExpenses(CashFlowDbContext dbContext, UserEntity user)
         {
-            _expense = ExpenseBuilder.Build(user);
+            var expense = ExpenseBuilder.Build(user);
 
-            dbContext.Expenses.Add(_expense);
+            dbContext.Expenses.Add(expense);
+
+            Expense_Manager = new ExpenseIdentityManager(expense);
         }
         #endregion
     }
