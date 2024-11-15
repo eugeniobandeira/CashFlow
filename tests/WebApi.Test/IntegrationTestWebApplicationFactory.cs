@@ -43,15 +43,13 @@ namespace WebApi.Test
 
         private void StartDatabase(CashFlowDbContext dbContext, IPasswordEncripter passwordEncripter)
         {
-            _user = UserBuilder.Build();
-            _password = _user.Password;
-            _user.Password = passwordEncripter.Encrypt(_user.Password);
+            AddUsers(dbContext, passwordEncripter);
+            AddExpenses(dbContext, _user!);
 
-            dbContext.Users.Add(_user);
             dbContext.SaveChanges();
         }
 
-        #region Get Methods
+        #region Helpers
         public string GetEmail()
             => _user!.Email;
 
@@ -63,6 +61,23 @@ namespace WebApi.Test
 
         public string GetToken()
             => _token!;
+
+        private void AddUsers(CashFlowDbContext dbContext, IPasswordEncripter passwordEncripter)
+        {
+            _user = UserBuilder.Build();
+            _password = _user.Password;
+
+            _user.Password = passwordEncripter.Encrypt(_user!.Password);
+
+            dbContext.Users.Add(_user);
+        }
+
+        private void AddExpenses(CashFlowDbContext dbContext, UserEntity user)
+        {
+            var expense = ExpenseBuilder.Build(user);
+
+            dbContext.Expenses.Add(expense);
+        }
         #endregion
     }
 }

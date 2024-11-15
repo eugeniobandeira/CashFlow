@@ -3,8 +3,6 @@ using CommonTestUtilities.Requests;
 using FluentAssertions;
 using System.Globalization;
 using System.Net;
-using System.Net.Http.Headers;
-using System.Net.Http.Json;
 using System.Text.Json;
 using WebApi.Test.InlineData;
 
@@ -15,7 +13,8 @@ namespace WebApi.Test.Expenses.Register
         private const string METHOD = "v1/api/expenses";
         private readonly string _token;
 
-        public RegisterExpenseTest(IntegrationTestWebApplicationFactory webAppFactory) : base(webAppFactory)
+        public RegisterExpenseTest(IntegrationTestWebApplicationFactory webAppFactory) 
+            : base(webAppFactory)
         {
             _token = webAppFactory.GetToken();
         }
