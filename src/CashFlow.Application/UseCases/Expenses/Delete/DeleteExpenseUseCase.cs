@@ -6,7 +6,7 @@ using CashFlow.Exception.ExceptionBase;
 
 namespace CashFlow.Application.UseCases.Expenses.Delete
 {
-    internal class DeleteExpenseUseCase : IDeleteExpenseUseCase
+    public class DeleteExpenseUseCase : IDeleteExpenseUseCase
     {
         private readonly IExpenseDeleteOnlyRepository _repository;
         private readonly IExpensesReadOnlyRepository _readOnlyRepository;

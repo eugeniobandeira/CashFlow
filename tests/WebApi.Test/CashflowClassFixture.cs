@@ -35,6 +35,17 @@ namespace WebApi.Test
             return await _httpClient.GetAsync(reqUri);
         }
 
+        protected async Task<HttpResponseMessage> DoDeleteAsync(
+            string reqUri,
+            string token = "",
+            string culture = "en")
+        {
+            AuthorizeRequest(token);
+            ChangeRequestCulture(culture);
+
+            return await _httpClient.DeleteAsync(reqUri);
+        }
+
         #region Helpers
         private void AuthorizeRequest(string token)
         {
