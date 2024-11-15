@@ -20,6 +20,14 @@ namespace CommonTestUtilities.Repositories.Expenses
             return this;
         }
 
+        public ExpensesReadOnlyRepositoryBuilder GetById(UserEntity user, ExpenseEntity? expense)
+        {
+            if (expense is not null)
+                _repository.Setup(repo => repo.GetByIdAsync(user, expense.Id)).ReturnsAsync(expense);
+
+            return this;
+        }
+
         public IExpensesReadOnlyRepository Build()
             => _repository.Object;
     }

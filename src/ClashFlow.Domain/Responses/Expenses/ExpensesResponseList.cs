@@ -4,6 +4,6 @@ namespace CashFlow.Domain.Responses.Register
 {
     public class ExpensesResponseList
     {
-        public List<ShortExpenseResponse> RegisteredExpenses { get; set; } = [];
+        public List<ShortExpenseResponse> Expenses { get; set; } = [];
     }
 }

@@ -31,7 +31,7 @@ namespace WebApi.Test.Expenses.GetAll
 
             response
                 .RootElement
-                .GetProperty("registeredExpenses")
+                .GetProperty("expenses")
                 .EnumerateArray()
                 .Should()
                 .NotBeNullOrEmpty();

@@ -52,7 +52,7 @@ namespace CashFlow.Api.Controllers
         {
             var response = await useCase.Execute();
 
-            if (response.RegisteredExpenses.Count != 0)
+            if (response.Expenses.Count != 0)
                 return Ok(response);
 
             return NoContent();

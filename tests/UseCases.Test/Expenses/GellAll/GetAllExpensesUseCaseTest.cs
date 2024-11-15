@@ -24,7 +24,7 @@ namespace WebApi.Test.Expenses.GetAll
             //Assert
             result.Should().NotBeNull();
             result
-                .RegisteredExpenses
+                .Expenses
                 .Should()
                 .NotBeNullOrEmpty()
                 .And
@@ -38,7 +38,7 @@ namespace WebApi.Test.Expenses.GetAll
 
         private static GetAllExpenseUseCase CreateUsecase(UserEntity user, List<ExpenseEntity> expenses)
         {
-            var repository = new ExpensesReadOnlyRepositoryBuilder().Build();
+            var repository = new ExpensesReadOnlyRepositoryBuilder().GetAll(user, expenses).Build();
             var mapper = MapperBuilder.Build();
             var loggedUser = LoggedUserBuilder.Build(user);
 

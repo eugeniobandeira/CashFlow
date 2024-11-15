@@ -7,7 +7,7 @@ using CashFlow.Domain.Interface.Service.LoggedUser;
 
 namespace CashFlow.Application.UseCases.Expenses.GetById
 {
-    internal class GetExpenseByIdUseCase : IGetExpenseByIdUseCase
+    public class GetExpenseByIdUseCase : IGetExpenseByIdUseCase
     {
         private readonly IExpensesReadOnlyRepository _repository;
         private readonly IMapper _mapper;

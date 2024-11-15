@@ -30,7 +30,7 @@ namespace CashFlow.Application.UseCases.Expenses.GetAll
 
             return new ExpensesResponseList
             {
-                RegisteredExpenses = _mapper.Map<List<ShortExpenseResponse>>(result)
+                Expenses = _mapper.Map<List<ShortExpenseResponse>>(result)
             };
         }
     }
