@@ -1,7 +1,9 @@
-﻿using CashFlow.Application.UseCases.Users.Register;
+﻿using CashFlow.Application.UseCases.Users.Profile;
+using CashFlow.Application.UseCases.Users.Register;
 using CashFlow.Domain.Requests.Users;
 using CashFlow.Domain.Responses.Error;
 using CashFlow.Domain.Responses.Users;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CashFlow.Api.Controllers
@@ -30,6 +32,22 @@ namespace CashFlow.Api.Controllers
             var response = await useCase.Execute(req);
 
             return Created(string.Empty, response);
+        }
+
+
+        /// <summary>
+        /// Get user profile
+        /// </summary>
+        /// <param name="useCase"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [ProducesResponseType(typeof(UserProfileResponse), StatusCodes.Status200OK)]
+        [Authorize]
+        public async Task<IActionResult> GetProfileAsync([FromServices] IGetUserProfileUseCase useCase)
+        {
+            var response = await useCase.Execute();
+
+            return Ok(response);
         }
     }
 }
