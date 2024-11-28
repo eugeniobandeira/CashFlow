@@ -162,6 +162,9 @@
   <data name="INVALID_PASSWORD_NULL_OR_WHITE_SPACE" xml:space="preserve">
     <value>A senha não pode ser nula ou espaços em branco</value>
   </data>
+  <data name="PASSWORD_DIFFERNT_CURRENT_PASSWORD" xml:space="preserve">
+    <value>A senha fornecida é diferente da senha atual</value>
+  </data>
   <data name="PAYMENT_TYPE_INVALID" xml:space="preserve">
     <value>Tipo de pagamento inválido</value>
   </data>

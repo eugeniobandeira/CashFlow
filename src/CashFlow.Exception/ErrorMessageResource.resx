@@ -162,6 +162,9 @@
   <data name="INVALID_PASSWORD_NULL_OR_WHITE_SPACE" xml:space="preserve">
     <value>Password can not be null or witespace</value>
   </data>
+  <data name="PASSWORD_DIFFERNT_CURRENT_PASSWORD" xml:space="preserve">
+    <value>The password provided does not match current password</value>
+  </data>
   <data name="PAYMENT_TYPE_INVALID" xml:space="preserve">
     <value>Payment type not valid</value>
   </data>

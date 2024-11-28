@@ -1,9 +1,9 @@
-﻿using CashFlow.Application.UseCases.Users.Profile;
+﻿using CashFlow.Application.UseCases.Users.ChangePassword;
+using CashFlow.Application.UseCases.Users.Profile;
 using CashFlow.Application.UseCases.Users.Register;
 using CashFlow.Application.UseCases.Users.Update;
 using CashFlow.Domain.Requests.Users;
 using CashFlow.Domain.Responses.Error;
-using CashFlow.Domain.Responses.Register;
 using CashFlow.Domain.Responses.Users;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -52,7 +52,13 @@ namespace CashFlow.Api.Controllers
             return Ok(response);
         }
 
-        [HttpPut]
+        /// <summary>
+        /// Update user profile informations
+        /// </summary>
+        /// <param name="useCase"></param>
+        /// <param name="req"></param>
+        /// <returns></returns>
+        [HttpPut("profile")]
         [Authorize]
         [ProducesResponseType(typeof(UserProfileResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
@@ -63,6 +69,25 @@ namespace CashFlow.Api.Controllers
             var response = await useCase.Execute(req);
 
             return Ok(response);
+        }
+
+        /// <summary>
+        /// update user´s password
+        /// </summary>
+        /// <param name="useCase"></param>
+        /// <param name="req"></param>
+        /// <returns></returns>
+        [HttpPut("change-password")]
+        [Authorize]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> ChangePasswordAsync(
+            [FromServices] IChangePasswordUseCase useCase,
+            [FromBody] ChangePasswordRequest req)
+        {
+            await useCase.Execute(req);
+
+            return NoContent();
         }
     }
 }
