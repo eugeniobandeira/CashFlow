@@ -14,8 +14,7 @@ namespace WebApi.Test.Users.Register
 
         public RegisterUserTest(IntegrationTestWebApplicationFactory webAppFactory) 
             : base(webAppFactory)
-        {
-        }
+        {  }
 
         [Fact]
         public async Task Success()
