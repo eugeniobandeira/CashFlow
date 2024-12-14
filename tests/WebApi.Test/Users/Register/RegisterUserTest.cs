@@ -12,9 +12,7 @@ namespace WebApi.Test.Users.Register
     {
         private const string METHOD = "v1/api/user";
 
-        public RegisterUserTest(IntegrationTestWebApplicationFactory webAppFactory) 
-            : base(webAppFactory)
-        {  }
+        public RegisterUserTest(IntegrationTestWebApplicationFactory webAppFactory) : base(webAppFactory) {  }
 
         [Fact]
         public async Task Success()

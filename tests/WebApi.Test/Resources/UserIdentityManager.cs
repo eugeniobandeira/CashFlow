@@ -26,5 +26,8 @@ namespace WebApi.Test.Resources
 
         public string GetToken()
             => _token!;
+
+        public long GetUserId()
+            => _user!.Id;
     }
 }

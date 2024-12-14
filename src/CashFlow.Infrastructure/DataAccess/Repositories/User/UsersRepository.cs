@@ -4,7 +4,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CashFlow.Infrastructure.DataAccess.Repositories.User
 {
-    internal class UsersRepository : IUserReadOnlyRepository, IUserWriteOnlyRepository, IUserUpdateOnlyRepository
+    internal class UsersRepository : 
+        IUserReadOnlyRepository, 
+        IUserWriteOnlyRepository, 
+        IUserUpdateOnlyRepository, 
+        IUserDeleteOnlyRepository
     {
         private readonly CashFlowDbContext _dbContext;
 
@@ -36,6 +40,13 @@ namespace CashFlow.Infrastructure.DataAccess.Repositories.User
         public void Update(UserEntity req)
         {
             _dbContext.Users.Update(req);
+        }
+
+        public async Task DeleteAsync(UserEntity user)
+        {
+            var userToDelete = await _dbContext.Users.FindAsync(user.Id);
+
+            _dbContext.Users.Remove(userToDelete!);
         }
     }
 }

@@ -5,13 +5,12 @@ using System.Globalization;
 using System.Net;
 using System.Text.Json;
 using WebApi.Test.InlineData;
-using Xunit.Sdk;
 
 namespace WebApi.Test.Users.Update
 {
     public class UpdateUserTest : CashflowClassFixture
     {
-        private const string METHOD = "v1/api/user";
+        private const string METHOD = "v1/api/user/profile";
         private readonly string _token;
 
         public UpdateUserTest(IntegrationTestWebApplicationFactory webAppFactory) : base(webAppFactory)
@@ -26,7 +25,7 @@ namespace WebApi.Test.Users.Update
             var req = UpdateUserRequestBuilder.Build();
 
             //Act
-            var response = await DoPutAsync(METHOD, req, token: _token);
+            var response = await DoPutAsync(reqUri: METHOD, req: req, token: _token);
 
             //Assert
             response.StatusCode.Should().Be(HttpStatusCode.OK);

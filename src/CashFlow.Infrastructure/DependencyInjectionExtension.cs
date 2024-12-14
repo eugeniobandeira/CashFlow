@@ -50,6 +50,7 @@ namespace CashFlow.Infrastructure
             services.AddScoped<IUserReadOnlyRepository, UsersRepository>();
             services.AddScoped<IUserWriteOnlyRepository, UsersRepository>();
             services.AddScoped<IUserUpdateOnlyRepository, UsersRepository>();
+            services.AddScoped<IUserDeleteOnlyRepository, UsersRepository>();
         }
 
         private static void AddToken(IServiceCollection services, IConfiguration configuration)
