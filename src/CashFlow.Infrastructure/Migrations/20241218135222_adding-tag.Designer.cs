@@ -13,7 +13,7 @@ namespace CashFlow.Infrastructure.Migrations
 {
     [DbContext(typeof(CashFlowDbContext))]
     [Migration("20241218135222_adding-tag")]
-    partial class addingtag
+    partial class Addingtag
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

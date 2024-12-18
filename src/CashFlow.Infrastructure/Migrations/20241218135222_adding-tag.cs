@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CashFlow.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class addingtag : Migration
+    public partial class Addingtag : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
