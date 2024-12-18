@@ -32,8 +32,12 @@ namespace CashFlow.Application.AutoMapper
 
         private void EntityToResponse()
         {
-            CreateMap<ExpenseEntity, RegisteredExpenseResponse>();
-            CreateMap<ExpenseEntity, ShortExpenseResponse>();
+            CreateMap<ExpenseEntity, RegisteredExpenseResponse>()
+                .ForMember(dest => dest.Tags, config => config.MapFrom(src => src.Tags.Select(tag => tag.Value)));
+
+            CreateMap<ExpenseEntity, ShortExpenseResponse>()
+                .ForMember(dest => dest.Tags, config => config.MapFrom(src => src.Tags.Select(tag => tag.Value)));
+
             CreateMap<UserEntity, UserProfileResponse>();
         }
     }

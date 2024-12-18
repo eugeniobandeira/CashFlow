@@ -10,5 +10,6 @@ namespace CashFlow.Domain.Responses.Register
         public decimal Amount { get; set; }
         public PaymentTypeEnum PaymentType { get; set; }
         public DateTime Date { get; set; }
+        public IList<TagEnum> Tags { get; set; } = [];
     }
 }
