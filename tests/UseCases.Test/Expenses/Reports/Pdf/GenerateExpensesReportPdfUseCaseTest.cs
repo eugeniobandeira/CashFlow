@@ -1,5 +1,4 @@
-﻿using CashFlow.Application.UseCases.Expenses.Reports.Excel;
-using CashFlow.Application.UseCases.Expenses.Reports.Pdf;
+﻿using CashFlow.Application.UseCases.Expenses.Reports.Pdf;
 using CashFlow.Domain.Entities;
 using CommonTestUtilities.Entities;
 using CommonTestUtilities.LoggedUser;

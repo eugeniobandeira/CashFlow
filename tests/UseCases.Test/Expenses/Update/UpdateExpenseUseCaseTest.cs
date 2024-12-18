@@ -1,16 +1,15 @@
-﻿using CashFlow.Application.UseCases.Expenses.Register;
+﻿using CashFlow.Application.UseCases.Expenses.Update;
 using CashFlow.Domain.Entities;
-using CashFlow.Exception.ExceptionBase;
+using CashFlow.Domain.Enums;
 using CashFlow.Exception;
+using CashFlow.Exception.ExceptionBase;
 using CommonTestUtilities.Entities;
 using CommonTestUtilities.LoggedUser;
 using CommonTestUtilities.Mapper;
-using CommonTestUtilities.Repositories.Expenses;
 using CommonTestUtilities.Repositories;
+using CommonTestUtilities.Repositories.Expenses;
 using CommonTestUtilities.Requests;
 using FluentAssertions;
-using CashFlow.Application.UseCases.Expenses.Update;
-using CashFlow.Domain.Enums;
 
 namespace UseCases.Test.Expenses.Update
 {

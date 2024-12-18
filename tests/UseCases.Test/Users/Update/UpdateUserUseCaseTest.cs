@@ -69,12 +69,12 @@ namespace UseCases.Test.Users.Update
             var unitOfWork = UnitOfWorkBuilder.Build();
             var updateRepository = UserUpdateOnlyRepositoryBuilder.Build(user);
             var loggedUser = LoggedUserBuilder.Build(user);
-            var readRepository = new UserReadOnlyRepositoryBuilder().Build();
+            var readRepository = new UserReadOnlyRepositoryBuilder();
 
             if (!string.IsNullOrWhiteSpace(email))
                 readRepository.ExistUserWithEmail(email);
 
-            return new UpdateUserUseCase(loggedUser, updateRepository, readRepository, unitOfWork);
+            return new UpdateUserUseCase(loggedUser, updateRepository, readRepository.Build(), unitOfWork);
         }
     }
 }
