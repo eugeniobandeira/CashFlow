@@ -10,6 +10,7 @@ namespace CashFlow.Domain.Entities
         public DateTime Date { get; set; }
         public decimal Amount { get; set; }
         public PaymentTypeEnum PaymentType { get; set; }
+        public ICollection<TagEntity> Tags { get; set; } = [];
         public long UserId { get; set; }
         public UserEntity User { get; set; } = default!;
     }
