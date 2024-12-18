@@ -4,9 +4,9 @@ using CashFlow.Exception;
 using CommonTestUtilities.Requests;
 using FluentAssertions;
 
-namespace Validators.Test.Expenses.Register
+namespace Validators.Test.Expenses
 {
-    public class RegisterExpenseValidatorTests
+    public class ExpenseValidatorTests
     {
         [Fact]
         public void Success()
@@ -14,7 +14,7 @@ namespace Validators.Test.Expenses.Register
             //Assert
             var validator = new ExpenseValidator();
             var req = InsertExpenseRequestBuilder.Build();
-        
+
             //Act
             var result = validator.Validate(req);
 
@@ -26,7 +26,7 @@ namespace Validators.Test.Expenses.Register
         [InlineData("")]
         [InlineData("    ")]
         [InlineData(null)]
-        public void Error_Title_Empty(string title) 
+        public void Error_Title_Empty(string title)
         {
             //Assert
             var validator = new ExpenseValidator();
@@ -86,6 +86,27 @@ namespace Validators.Test.Expenses.Register
                 .And
                 .Contain(e => e.ErrorMessage
                 .Equals(ErrorMessageResource.PAYMENT_TYPE_INVALID));
+        }
+
+        [Fact]
+        public void Error_Invalid_Tag()
+        {
+            //Assert
+            var validator = new ExpenseValidator();
+            var req = InsertExpenseRequestBuilder.Build();
+            req.Tags.Add((TagEnum)1000);
+
+            //Act
+            var result = validator.Validate(req);
+
+            //Assert
+            result.IsValid.Should().BeFalse();
+            result.Errors
+                .Should()
+                .ContainSingle()
+                .And
+                .Contain(e => e.ErrorMessage
+                .Equals(ErrorMessageResource.TAG_TYPE_NOT_SUPPORTED));
         }
 
         [Theory]

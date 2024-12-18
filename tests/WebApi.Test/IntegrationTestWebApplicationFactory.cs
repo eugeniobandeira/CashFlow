@@ -47,11 +47,11 @@ namespace WebApi.Test
             IJwtTokenGenerator jwtTokenGenerator)
         {
             var regularUser = AddRegularUser(dbContext, passwordEncripter, jwtTokenGenerator);
-            var expenseRegularUser = AddExpenses(dbContext, regularUser, expenseId: 1);
+            var expenseRegularUser = AddExpenses(dbContext, regularUser, expenseId: 1, tagId: 1);
             Regular_User_Expense_Manager = new ExpenseIdentityManager(expenseRegularUser);
 
             var adminUser = AddAdminUser(dbContext, passwordEncripter, jwtTokenGenerator);
-            var expenseAdminUser = AddExpenses(dbContext, adminUser, expenseId: 2);
+            var expenseAdminUser = AddExpenses(dbContext, adminUser, expenseId: 2, tagId: 2);
             Admin_User_Expense_Manager = new ExpenseIdentityManager(expenseAdminUser);
 
             dbContext.SaveChanges();
@@ -98,11 +98,17 @@ namespace WebApi.Test
             return user;
         }
 
-        private static ExpenseEntity AddExpenses(CashFlowDbContext dbContext, UserEntity user, long expenseId)
+        private static ExpenseEntity AddExpenses(CashFlowDbContext dbContext, UserEntity user, long expenseId, long tagId)
         {
             var expense = ExpenseBuilder.Build(user);
             expense.Id = expenseId;
 
+            foreach (var tag in expense.Tags)
+            {
+                tag.Id = tagId;
+                tag.ExpenseId = expenseId;
+            }
+                
             dbContext.Expenses.Add(expense);
 
             return expense;
