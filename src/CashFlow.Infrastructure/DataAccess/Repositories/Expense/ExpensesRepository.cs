@@ -25,8 +25,7 @@ namespace CashFlow.Infrastructure.DataAccess.Repositories.Expense
 
         public async Task<List<ExpenseEntity>> GetAllAsync(UserEntity userEntity)
         {
-            return await _dbContext
-                .Expenses
+            return await GetFullExpense()
                 .AsNoTracking()
                 .Where(exp => exp.UserId == userEntity.Id)
                 .ToListAsync();
